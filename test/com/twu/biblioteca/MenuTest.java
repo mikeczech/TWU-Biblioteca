@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
@@ -77,5 +78,15 @@ public class MenuTest {
         menu.readInput();
 
         assertEquals("Now we quit\n", outContent.toString());
+    }
+
+    @Test(expected = IOException.class)
+    public void stringAsInputShouldFail() {
+        Menu menu = new Menu();
+        menu.addOption("Quit");
+        ByteArrayInputStream in = new ByteArrayInputStream("aba".getBytes());
+        System.setIn(in);
+
+        menu.readInput();
     }
 }
