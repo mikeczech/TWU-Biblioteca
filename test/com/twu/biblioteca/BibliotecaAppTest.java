@@ -40,6 +40,13 @@ public class BibliotecaAppTest {
     }
 
     @Test
+    public void emptyLibraryProducesNoOutput() {
+        BibliotecaApp app = new BibliotecaApp();
+        app.listBooks();
+        assertTrue(outContent.toString().isEmpty());
+    }
+
+    @Test
     public void listedBookisBraveNewWorld() {
         BibliotecaApp app = new BibliotecaApp(new Book("Brave New World", "Aldous Huxley", Year.of(1932)));
         app.listBooks();
