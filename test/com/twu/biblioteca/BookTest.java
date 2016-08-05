@@ -12,7 +12,7 @@ public class BookTest {
 
     @Test
     public void bookProvidesTitle() {
-        Book book = new Book("Brave New World");
+        Book book = new Book("Brave New World", "");
         assertEquals("Brave New World", book.getTitle());
     }
 
