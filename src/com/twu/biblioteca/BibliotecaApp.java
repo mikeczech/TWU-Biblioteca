@@ -21,6 +21,6 @@ public class BibliotecaApp {
     }
 
     public void listBooks() {
-        System.out.println("");
+        System.out.println("(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]");
     }
 }
