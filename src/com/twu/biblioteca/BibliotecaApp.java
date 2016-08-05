@@ -1,15 +1,20 @@
 package com.twu.biblioteca;
 
+import java.time.Year;
+import java.util.Arrays;
+
 public class BibliotecaApp {
 
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca!";
 
-    public BibliotecaApp(Book book) {
+    private Book library;
 
+    public BibliotecaApp(Book book) {
+        this.library = book;
     }
 
     public BibliotecaApp() {
-
+        this.library = new Book("", "", Year.of(0));
     }
 
     public static void main(String[] args) {
@@ -21,6 +26,6 @@ public class BibliotecaApp {
     }
 
     public void listBooks() {
-        System.out.println("(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]");
+        System.out.println("(1) " + String.join(", ", library.getTitle(), library.getAuthor(), library.getPublicationYear().toString()) +  " [AVAILABLE]");
     }
 }
