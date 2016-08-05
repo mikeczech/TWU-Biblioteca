@@ -12,16 +12,9 @@ public class BibliotecaApp {
 
     private List<Book> library = new ArrayList<>();
 
-    public BibliotecaApp(Book book) {
-        library.add(book);
-    }
-
-    public BibliotecaApp() {
-    }
-
-    public BibliotecaApp(Book book, Book book1) {
-        library.add(book);
-        library.add(book1);
+    public BibliotecaApp(Book ...books) {
+        for(Book b : books)
+            library.add(b);
     }
 
     public static void main(String[] args) {
