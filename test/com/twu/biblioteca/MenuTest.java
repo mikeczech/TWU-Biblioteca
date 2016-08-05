@@ -38,4 +38,14 @@ public class MenuTest {
                      "b) Quit\n", outContent.toString());
     }
 
+    @Test
+    public void menuShowsMultipleAddedOptionsWithASpecificOrder() {
+        Menu menu = new Menu();
+        menu.addOption("Quit");
+        menu.addOption("List Options");
+        menu.show();
+        assertEquals("a) Quit\n" +
+                "b) List Options\n", outContent.toString());
+    }
+
 }
