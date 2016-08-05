@@ -109,4 +109,17 @@ public class MenuTest {
 
         menu.processInput();
     }
+
+    @Test
+    public void selectingSecondOptionLeadsToExpectedAction() throws IOException {
+        Menu menu = new Menu();
+        menu.addOption("List Books", () -> System.out.println("List all the books"));
+        menu.addOption("Quit", () -> System.out.println("Now we quit"));
+        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
+        System.setIn(in);
+
+        menu.processInput();
+
+        assertEquals("Now we quit\n", outContent.toString());
+    }
 }
