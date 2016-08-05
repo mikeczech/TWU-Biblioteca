@@ -28,4 +28,14 @@ public class MenuTest {
         assertEquals("a) List Options\n", outContent.toString());
     }
 
+    @Test
+    public void menuShowsMultipleAddedOptions() {
+        Menu menu = new Menu();
+        menu.addOption("List Options");
+        menu.addOption("Quit");
+        menu.show();
+        assertEquals("a) List Options\n" +
+                     "b) Quit", outContent.toString());
+    }
+
 }
