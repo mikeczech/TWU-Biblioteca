@@ -27,12 +27,14 @@ public class Menu {
 
     public void readInput() throws IOException {
         Scanner scanner = new Scanner(System.in);
+        if(!scanner.hasNext())
+            throw new IOException("Empty input.");
         String input = scanner.nextLine();
         if(input.length() != 1)
             throw new IOException("Input must consist of exactly one character.");
         char optionKey = input.charAt(0);
         if(!options.containsKey(optionKey))
-            throw new IOException("Unknown option key");
+            throw new IOException("Unknown option key.");
         actions.get(optionKey).apply();
     }
 
