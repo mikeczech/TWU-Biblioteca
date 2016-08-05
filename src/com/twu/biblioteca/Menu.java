@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,9 +25,11 @@ public class Menu {
             System.out.println(optionKey + ") " + options.get(optionKey));
     }
 
-    public void readInput() {
+    public void readInput() throws IOException {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        if(input.length() > 1)
+            throw new IOException("Input must consist of exactly one character.");
         actions.get(input.charAt(0)).apply();
     }
 

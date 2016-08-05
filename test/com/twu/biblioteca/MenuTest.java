@@ -57,7 +57,7 @@ public class MenuTest {
     }
 
     @Test
-    public void selectionOfOptionShouldLeadTotheExpectedAction() {
+    public void selectionOfOptionShouldLeadTotheExpectedAction() throws IOException {
         Menu menu = new Menu();
         menu.addOption("List Books", () -> System.out.println("All the books"));
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
@@ -69,7 +69,7 @@ public class MenuTest {
     }
 
     @Test
-    public void appliedActionShouldDependOnOption() {
+    public void appliedActionShouldDependOnOption() throws IOException {
         Menu menu = new Menu();
         menu.addOption("Quit", () -> System.out.println("Now we quit"));
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
@@ -81,7 +81,7 @@ public class MenuTest {
     }
 
     @Test(expected = IOException.class)
-    public void stringAsInputShouldFail() {
+    public void stringAsInputShouldFail() throws IOException {
         Menu menu = new Menu();
         menu.addOption("Quit");
         ByteArrayInputStream in = new ByteArrayInputStream("aba".getBytes());
