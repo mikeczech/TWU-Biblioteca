@@ -5,8 +5,8 @@ import java.time.Year;
 public class Book {
 
     private String title;
-
     private String author;
+    private Year publicationYear;
 
     public Book(String title, String author) {
         this.title = title;
@@ -14,7 +14,7 @@ public class Book {
     }
 
     public Book(String s, String s1, Year of) {
-
+        this.publicationYear = of;
     }
 
     public String getTitle() {
@@ -26,6 +26,6 @@ public class Book {
     }
 
     public Year getPublicationYear() {
-        return null;
+        return publicationYear;
     }
 }
