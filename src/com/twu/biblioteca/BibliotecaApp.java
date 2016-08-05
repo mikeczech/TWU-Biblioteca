@@ -26,6 +26,7 @@ public class BibliotecaApp {
 
     public void listBooks() {
         if(library != null)
-            System.out.println("(1) " + String.join(", ", library.getTitle(), library.getAuthor(), library.getPublicationYear().toString()) +  " [AVAILABLE]");
+            System.out.println("(1) " + library +  " [AVAILABLE]");
     }
+
 }

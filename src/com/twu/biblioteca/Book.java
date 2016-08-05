@@ -25,4 +25,8 @@ public class Book {
     public Year getPublicationYear() {
         return publicationYear;
     }
+
+    public String toString() {
+        return String.join(", ", title, author, publicationYear.toString());
+    }
 }
