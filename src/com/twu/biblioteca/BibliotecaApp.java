@@ -14,7 +14,6 @@ public class BibliotecaApp {
     }
 
     public BibliotecaApp() {
-        this.library = new Book("", "", Year.of(0));
     }
 
     public static void main(String[] args) {

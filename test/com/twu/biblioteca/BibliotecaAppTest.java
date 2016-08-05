@@ -34,7 +34,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void listBooks() {
-        BibliotecaApp app = new BibliotecaApp();
+        BibliotecaApp app = new BibliotecaApp(new Book("", "", Year.of(0)));
         app.listBooks();
         assertFalse(outContent.toString().isEmpty());
     }
