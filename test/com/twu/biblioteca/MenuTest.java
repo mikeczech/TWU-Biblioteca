@@ -35,7 +35,7 @@ public class MenuTest {
         menu.addOption("Quit");
         menu.show();
         assertEquals("a) List Options\n" +
-                     "b) Quit", outContent.toString());
+                     "b) Quit\n", outContent.toString());
     }
 
 }
