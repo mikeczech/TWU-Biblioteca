@@ -4,6 +4,14 @@ public class BibliotecaApp {
 
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca!";
 
+    public BibliotecaApp(Book book) {
+
+    }
+
+    public BibliotecaApp() {
+
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello, world!");
     }

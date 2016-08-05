@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.Year;
 
 import static org.junit.Assert.*;
 
@@ -36,6 +37,13 @@ public class BibliotecaAppTest {
         BibliotecaApp app = new BibliotecaApp();
         app.listBooks();
         assertFalse(outContent.toString().isEmpty());
+    }
+
+    @Test
+    public void listedBookisBraveNewWorld() {
+        BibliotecaApp app = new BibliotecaApp(new Book("Brave New World", "Aldous Huxley", Year.of(1932)));
+        app.listBooks();
+        assertEquals("(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n", outContent.toString());
     }
 
 }
