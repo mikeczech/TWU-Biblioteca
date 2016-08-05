@@ -25,7 +25,7 @@ public class Menu {
             System.out.println(optionKey + ") " + options.get(optionKey));
     }
 
-    public void readInput() throws IOException {
+    public void processInput() throws IOException {
         Scanner scanner = new Scanner(System.in);
         if(!scanner.hasNext())
             throw new IOException("Empty input.");

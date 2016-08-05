@@ -63,7 +63,7 @@ public class MenuTest {
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
         System.setIn(in);
 
-        menu.readInput();
+        menu.processInput();
 
         assertEquals("All the books\n", outContent.toString());
     }
@@ -75,7 +75,7 @@ public class MenuTest {
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
         System.setIn(in);
 
-        menu.readInput();
+        menu.processInput();
 
         assertEquals("Now we quit\n", outContent.toString());
     }
@@ -87,7 +87,7 @@ public class MenuTest {
         ByteArrayInputStream in = new ByteArrayInputStream("aba".getBytes());
         System.setIn(in);
 
-        menu.readInput();
+        menu.processInput();
     }
 
     @Test(expected = IOException.class)
@@ -97,7 +97,7 @@ public class MenuTest {
         ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
         System.setIn(in);
 
-        menu.readInput();
+        menu.processInput();
     }
 
     @Test(expected = IOException.class)
@@ -107,6 +107,6 @@ public class MenuTest {
         ByteArrayInputStream in = new ByteArrayInputStream("".getBytes());
         System.setIn(in);
 
-        menu.readInput();
+        menu.processInput();
     }
 }
