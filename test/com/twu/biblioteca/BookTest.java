@@ -16,5 +16,11 @@ public class BookTest {
         assertEquals("Brave New World", book.getTitle());
     }
 
+    @Test
+    public void bookProvidesAuthor() {
+        Book book = new Book("", "Aldous Huxley");
+        assertEquals("Aldous Huxley", book.getAuthor());
+    }
+
 
 }
