@@ -8,9 +8,6 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by mczech on 05/08/16.
- */
 public class BibliotecaAppTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
