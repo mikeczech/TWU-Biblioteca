@@ -99,4 +99,14 @@ public class MenuTest {
 
         menu.readInput();
     }
+
+    @Test(expected = IOException.class)
+    public void givingEmptyInputShouldFail() throws IOException {
+        Menu menu = new Menu();
+        menu.addOption("Quit");
+        ByteArrayInputStream in = new ByteArrayInputStream("".getBytes());
+        System.setIn(in);
+
+        menu.readInput();
+    }
 }
