@@ -1,24 +1,24 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mczech on 05/08/16.
  */
 public class Menu {
 
-    private List<String> options = new ArrayList<>();
+    private Map<Character, String> options = new HashMap<>();
+    private char nextOptionKey = 'a';
 
     public void addOption(String option) {
-        options.add(option);
+        options.put(nextOptionKey, option);
+        nextOptionKey++;
     }
 
     public void show() {
-        IntStream.range(0, options.size()).forEach(i ->
-            System.out.println(((char)(i+'a')) + ") " + options.get(i))
-        );
+        for(Character optionKey : options.keySet())
+            System.out.println(optionKey + ") " + options.get(optionKey));
     }
 
 }
