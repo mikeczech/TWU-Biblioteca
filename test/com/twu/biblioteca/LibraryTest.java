@@ -1,8 +1,10 @@
 package com.twu.biblioteca;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.Year;
 
 import static org.junit.Assert.*;
@@ -13,6 +15,11 @@ import static org.junit.Assert.*;
 public class LibraryTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+    @Before
+    public void setUp() {
+        System.setOut(new PrintStream(outContent));
+    }
 
     @Test
     public void listBooks() {
