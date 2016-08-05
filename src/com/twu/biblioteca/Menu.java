@@ -23,7 +23,7 @@ public class Menu {
     }
 
     public void readInput() {
-        System.out.println("Hello World");
+        System.out.println("All the books");
     }
 
     public void addOption(String key, Action action) {

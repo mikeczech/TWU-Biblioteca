@@ -24,22 +24,22 @@ public class MenuTest {
     @Test
     public void showMenu() {
         Menu menu = new Menu();
-        menu.addOption("List Options");
+        menu.addOption("List Books");
 
         menu.show();
 
-        assertEquals("a) List Options\n", outContent.toString());
+        assertEquals("a) List Books\n", outContent.toString());
     }
 
     @Test
     public void menuShowsMultipleAddedOptions() {
         Menu menu = new Menu();
-        menu.addOption("List Options");
+        menu.addOption("List Books");
         menu.addOption("Quit");
 
         menu.show();
 
-        assertEquals("a) List Options\n" +
+        assertEquals("a) List Books\n" +
                      "b) Quit\n", outContent.toString());
     }
 
@@ -47,24 +47,23 @@ public class MenuTest {
     public void menuShowsMultipleAddedOptionsWithASpecificOrder() {
         Menu menu = new Menu();
         menu.addOption("Quit");
-        menu.addOption("List Options");
+        menu.addOption("List Books");
 
         menu.show();
 
         assertEquals("a) Quit\n" +
-                "b) List Options\n", outContent.toString());
+                "b) List Books\n", outContent.toString());
     }
 
     @Test
-    public void chooseOption() {
+    public void selectionOfOptionShouldLeadTotheExpectedAction() {
         Menu menu = new Menu();
-        menu.addOption("Hello", () -> System.out.println("Hello World"));
+        menu.addOption("List Books", () -> System.out.println("All the books"));
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
         System.setIn(in);
 
         menu.readInput();
 
-        assertEquals("Hello World\n", outContent.toString());
+        assertEquals("All the books\n", outContent.toString());
     }
-
 }
