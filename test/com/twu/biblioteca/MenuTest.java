@@ -25,7 +25,7 @@ public class MenuTest {
         Menu menu = new Menu();
         menu.addOption("List Options");
         menu.show();
-        assertEquals("a) List Options", outContent.toString());
+        assertEquals("a) List Options\n", outContent.toString());
     }
 
 }
