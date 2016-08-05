@@ -15,7 +15,7 @@ public class Menu {
     private Map<Character, Action> actions = new HashMap<>();
     private char nextOptionKey = 'a';
 
-    public void addOption(String option) {
+    protected void addOption(String option) {
         options.put(nextOptionKey, option);
         nextOptionKey++;
     }
