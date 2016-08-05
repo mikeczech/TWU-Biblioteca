@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import java.time.Year;
+
 public class Book {
 
     private String title;
@@ -11,11 +13,19 @@ public class Book {
         this.author = author;
     }
 
+    public Book(String s, String s1, Year of) {
+
+    }
+
     public String getTitle() {
             return title;
     }
 
     public String getAuthor() {
         return author;
+    }
+
+    public Year getPublicationYear() {
+        return null;
     }
 }

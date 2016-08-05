@@ -22,5 +22,11 @@ public class BookTest {
         assertEquals("Aldous Huxley", book.getAuthor());
     }
 
+    @Test
+    public void bookProvidesPublicationYear() {
+        Book book = new Book("", "", Year.of(1932));
+        assertEquals(Year.of(1932), book.getPublicationYear());
+    }
+
 
 }
