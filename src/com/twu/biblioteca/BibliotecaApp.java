@@ -7,6 +7,6 @@ public class BibliotecaApp {
     }
 
     public void showWelcomeMessage() {
-        System.out.print("Welcome to Biblioteca!");
+        System.out.println("Welcome to Biblioteca!");
     }
 }
