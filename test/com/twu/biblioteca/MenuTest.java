@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -52,6 +53,18 @@ public class MenuTest {
 
         assertEquals("a) Quit\n" +
                 "b) List Options\n", outContent.toString());
+    }
+
+    @Test
+    public void chooseOption() {
+        Menu menu = new Menu();
+        menu.addOption("Hello");
+        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
+        System.setIn(in);
+
+        menu.readInput();
+
+        assertEquals("Hello World\n", outContent.toString());
     }
 
 }

@@ -21,4 +21,7 @@ public class Menu {
             System.out.println(optionKey + ") " + options.get(optionKey));
     }
 
+    public void readInput() {
+        
+    }
 }
