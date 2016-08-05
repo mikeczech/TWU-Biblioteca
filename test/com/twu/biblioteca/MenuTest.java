@@ -66,4 +66,16 @@ public class MenuTest {
 
         assertEquals("All the books\n", outContent.toString());
     }
+
+    @Test
+    public void appliedActionShouldBeDependingOnOption() {
+        Menu menu = new Menu();
+        menu.addOption("Quit", () -> System.out.println("Now we quit"));
+        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
+        System.setIn(in);
+
+        menu.readInput();
+
+        assertEquals("Now we quit\n", outContent.toString());
+    }
 }
