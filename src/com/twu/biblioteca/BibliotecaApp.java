@@ -16,6 +16,10 @@ public class BibliotecaApp {
     public BibliotecaApp() {
     }
 
+    public BibliotecaApp(Book book, Book book1) {
+
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello, world!");
     }

@@ -59,4 +59,14 @@ public class BibliotecaAppTest {
         app.listBooks();
         assertEquals("(1) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
     }
+
+    @Test
+    public void listingMultipleBooksProducesCorrectNumbering() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945)));
+        app.listBooks();
+        assertEquals("(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n" +
+                     "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
+    }
 }
