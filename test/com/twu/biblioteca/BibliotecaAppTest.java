@@ -31,4 +31,11 @@ public class BibliotecaAppTest {
         assertEquals("Welcome to Biblioteca!\n", outContent.toString());
     }
 
+    @Test
+    public void listBooks() {
+        BibliotecaApp app = new BibliotecaApp();
+        app.listBooks();
+        assertFalse(outContent.toString().isEmpty());
+    }
+
 }

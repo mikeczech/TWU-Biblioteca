@@ -11,4 +11,8 @@ public class BibliotecaApp {
     public void showWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE);
     }
+
+    public void listBooks() {
+
+    }
 }
