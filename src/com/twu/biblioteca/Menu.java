@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Created by mczech on 05/08/16.
@@ -23,5 +24,8 @@ public class Menu {
 
     public void readInput() {
         System.out.println("Hello World");
+    }
+
+    public void addOption(String key, Action action) {
     }
 }

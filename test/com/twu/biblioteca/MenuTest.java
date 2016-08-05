@@ -58,7 +58,7 @@ public class MenuTest {
     @Test
     public void chooseOption() {
         Menu menu = new Menu();
-        menu.addOption("Hello");
+        menu.addOption("Hello", () -> System.out.println("Hello World"));
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
         System.setIn(in);
 
