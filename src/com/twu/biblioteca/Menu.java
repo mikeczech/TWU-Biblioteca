@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.function.Consumer;
 
 /**
@@ -10,6 +11,7 @@ import java.util.function.Consumer;
 public class Menu {
 
     private Map<Character, String> options = new HashMap<>();
+    private Map<Character, Action> actions = new HashMap<>();
     private char nextOptionKey = 'a';
 
     public void addOption(String option) {
@@ -23,9 +25,13 @@ public class Menu {
     }
 
     public void readInput() {
-        System.out.println("All the books");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        actions.get(input.charAt(0)).apply();
     }
 
-    public void addOption(String key, Action action) {
+    public void addOption(String option, Action action) {
+        actions.put(nextOptionKey, action);
+        addOption(option);
     }
 }
