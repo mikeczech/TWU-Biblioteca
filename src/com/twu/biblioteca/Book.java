@@ -8,13 +8,10 @@ public class Book {
     private String author;
     private Year publicationYear;
 
-    public Book(String title, String author) {
+    public Book(String title, String author, Year publicationYear) {
         this.title = title;
         this.author = author;
-    }
-
-    public Book(String s, String s1, Year of) {
-        this.publicationYear = of;
+        this.publicationYear = publicationYear;
     }
 
     public String getTitle() {

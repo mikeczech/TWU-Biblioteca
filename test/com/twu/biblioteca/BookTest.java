@@ -12,13 +12,13 @@ public class BookTest {
 
     @Test
     public void bookProvidesTitle() {
-        Book book = new Book("Brave New World", "");
+        Book book = new Book("Brave New World", "", Year.of(0));
         assertEquals("Brave New World", book.getTitle());
     }
 
     @Test
     public void bookProvidesAuthor() {
-        Book book = new Book("", "Aldous Huxley");
+        Book book = new Book("", "Aldous Huxley", Year.of(0));
         assertEquals("Aldous Huxley", book.getAuthor());
     }
 
