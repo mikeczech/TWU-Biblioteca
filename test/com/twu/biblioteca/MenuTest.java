@@ -68,7 +68,7 @@ public class MenuTest {
     }
 
     @Test
-    public void appliedActionShouldBeDependingOnOption() {
+    public void appliedActionShouldDependOnOption() {
         Menu menu = new Menu();
         menu.addOption("Quit", () -> System.out.println("Now we quit"));
         ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
