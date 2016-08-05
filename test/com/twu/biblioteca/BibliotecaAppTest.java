@@ -28,7 +28,7 @@ public class BibliotecaAppTest {
     public void welcomeMessageIsSpecificText() {
         BibliotecaApp app = new BibliotecaApp();
         app.showWelcomeMessage();
-        assertEquals("Welcome to Biblioteca!", outContent.toString());
+        assertEquals("Welcome to Biblioteca!\n", outContent.toString());
     }
 
 }
