@@ -22,6 +22,6 @@ public class Menu {
     }
 
     public void readInput() {
-        
+        System.out.println("Hello World");
     }
 }
