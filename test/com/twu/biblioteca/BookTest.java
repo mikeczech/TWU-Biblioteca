@@ -28,5 +28,4 @@ public class BookTest {
         assertEquals(Year.of(1932), book.getPublicationYear());
     }
 
-
 }
