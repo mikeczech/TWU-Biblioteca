@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Created by mczech on 05/08/16.
@@ -15,12 +16,9 @@ public class Menu {
     }
 
     public void show() {
-        if(options.size() == 1)
-            System.out.println("a) List Options");
-        else {
-            System.out.println("a) List Options");
-            System.out.println("b) Quit");
-        }
+        IntStream.range(0, options.size()).forEach(i ->
+            System.out.println(((char)(i+'a')) + ") " + options.get(i))
+        );
     }
 
 }
