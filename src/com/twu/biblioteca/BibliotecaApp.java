@@ -1,23 +1,27 @@
 package com.twu.biblioteca;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class BibliotecaApp {
 
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca!";
 
-    private Book library;
+    private List<Book> library = new ArrayList<>();
 
     public BibliotecaApp(Book book) {
-        this.library = book;
+        library.add(book);
     }
 
     public BibliotecaApp() {
     }
 
     public BibliotecaApp(Book book, Book book1) {
-
+        library.add(book);
+        library.add(book1);
     }
 
     public static void main(String[] args) {
@@ -29,8 +33,9 @@ public class BibliotecaApp {
     }
 
     public void listBooks() {
-        if(library != null)
-            System.out.println("(1) " + library +  " [AVAILABLE]");
+        IntStream.range(0, library.size()).forEach(i ->
+            System.out.println("(" + (i+1) + ") " + library.get(i) +  " [AVAILABLE]")
+        );
     }
 
 }
