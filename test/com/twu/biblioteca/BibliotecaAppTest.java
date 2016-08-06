@@ -50,19 +50,19 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n" +
                 "Select a valid option!\n", outContent.toString());
     }
 
     @Test
     public void afterSelectingAnInvalidOptionWeCanChooseAnotherOne() {
         BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("c".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("c\nc".getBytes());
         System.setIn(in);
 
         app.start(2);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n" +
                 "Select a valid option!\n" +
                 "Select a valid option!\n", outContent.toString());
     }

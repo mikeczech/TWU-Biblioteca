@@ -27,16 +27,17 @@ public class BibliotecaApp {
     }
 
     public void start(int inputLoopUpperBound) {
-        try {
             showWelcomeMessage();
             System.out.println();
             menu.show();
-            if(inputLoopUpperBound == 1) {
-                menu.processInput();
+            int i = 0;
+            while(i < inputLoopUpperBound) {
+                try {
+                    menu.processInput();
+                } catch(IOException ex) {
+                    System.out.println("Select a valid option!");
+                }
+                i++;
             }
-        } catch(IOException ex) {
-            System.out.println();
-            System.out.println("Select a valid option!");
-        }
     }
 }
