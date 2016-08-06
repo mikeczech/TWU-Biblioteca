@@ -13,6 +13,10 @@ public class BibliotecaApp {
         buildMenu();
     }
 
+    public BibliotecaApp(Book ...books) {
+
+    }
+
     public void showWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE);
     }

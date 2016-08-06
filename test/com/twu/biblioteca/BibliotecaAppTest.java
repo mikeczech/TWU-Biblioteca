@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.Year;
 
 import static org.junit.Assert.*;
 
@@ -65,6 +66,22 @@ public class BibliotecaAppTest {
         assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n" +
                 "Select a valid option!\n" +
                 "Select a valid option!\n", outContent.toString());
+    }
+
+    @Test
+    public void whenSelectingListBooksAListOfBooksIsShown() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945))
+        );
+        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
+        System.setIn(in);
+
+        app.start(1);
+
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
+                "(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n" +
+                "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
     }
 
 }
