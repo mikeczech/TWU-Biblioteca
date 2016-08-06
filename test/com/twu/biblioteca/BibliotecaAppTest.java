@@ -3,7 +3,9 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
@@ -38,6 +40,18 @@ public class BibliotecaAppTest {
         app.startAndThenQuit();
 
         assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
+    }
+
+    @Test
+    public void whenSelectingAnInvalidOptionAMessageIsShown() throws IOException {
+        BibliotecaApp app = new BibliotecaApp();
+        ByteArrayInputStream in = new ByteArrayInputStream("c".getBytes());
+        System.setIn(in);
+
+        app.startAndThenQuit();
+
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
+                "Select a valid option!\n", outContent.toString());
     }
 
 }

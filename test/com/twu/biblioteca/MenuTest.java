@@ -124,4 +124,6 @@ public class MenuTest {
 
         assertEquals("Now we quit\n", outContent.toString());
     }
+
+
 }
