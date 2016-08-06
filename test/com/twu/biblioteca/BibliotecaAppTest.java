@@ -92,7 +92,7 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n", outContent.toString());
     }
 
 }

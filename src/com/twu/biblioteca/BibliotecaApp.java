@@ -11,6 +11,8 @@ public class BibliotecaApp {
 
     private Library lib;
 
+    private boolean stop = false;
+
     public BibliotecaApp() {
         buildMenu();
     }
@@ -26,7 +28,7 @@ public class BibliotecaApp {
 
     private void buildMenu() {
         menu.addOption("List Books", () -> lib.listBooks());
-        menu.addOption("Quit");
+        menu.addOption("Quit", () -> stop = true);
     }
 
     public static void main(String[] args) {
@@ -38,7 +40,7 @@ public class BibliotecaApp {
             System.out.println();
             menu.show();
             int i = 0;
-            while(i < inputLoopUpperBound) {
+            while(i < inputLoopUpperBound && !stop) {
                 System.out.println();
                 tryProcessInput();
                 i++;
