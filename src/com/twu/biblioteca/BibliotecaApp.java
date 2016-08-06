@@ -22,7 +22,7 @@ public class BibliotecaApp {
         menu.addOption("Quit");
     }
 
-    public void startAndThenQuit() {
+    public void start() {
         try {
             showWelcomeMessage();
             System.out.println();

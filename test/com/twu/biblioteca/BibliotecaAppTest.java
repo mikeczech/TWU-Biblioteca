@@ -37,7 +37,7 @@ public class BibliotecaAppTest {
     public void afterShowingTheWelcomeMessageTheMenuShouldAppear() {
         BibliotecaApp app = new BibliotecaApp();
 
-        app.startAndThenQuit();
+        app.start();
 
         assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
     }
@@ -48,7 +48,7 @@ public class BibliotecaAppTest {
         ByteArrayInputStream in = new ByteArrayInputStream("c".getBytes());
         System.setIn(in);
 
-        app.startAndThenQuit();
+        app.start();
 
         assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
                 "Select a valid option!\n", outContent.toString());
