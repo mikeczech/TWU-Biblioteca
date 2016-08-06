@@ -48,7 +48,7 @@ public class BibliotecaAppTest {
         ByteArrayInputStream in = new ByteArrayInputStream("c".getBytes());
         System.setIn(in);
 
-        app.start();
+        app.start(1);
 
         assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
                 "Select a valid option!\n", outContent.toString());

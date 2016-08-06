@@ -22,23 +22,21 @@ public class BibliotecaApp {
         menu.addOption("Quit");
     }
 
-    public void start() {
-        try {
-            showWelcomeMessage();
-            System.out.println();
-            menu.show();
-            menu.processInput();
-        } catch(IOException ex) {
-            System.out.println();
-            System.out.println("Select a valid option!");
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println("Hello, world!");
     }
 
-    public void start(int i) {
-
+    public void start(int inputLoopUpperBound) {
+        try {
+            showWelcomeMessage();
+            System.out.println();
+            menu.show();
+            if(inputLoopUpperBound == 1) {
+                menu.processInput();
+            }
+        } catch(IOException ex) {
+            System.out.println();
+            System.out.println("Select a valid option!");
+        }
     }
 }
