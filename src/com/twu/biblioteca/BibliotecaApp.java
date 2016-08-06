@@ -32,12 +32,16 @@ public class BibliotecaApp {
             menu.show();
             int i = 0;
             while(i < inputLoopUpperBound) {
-                try {
-                    menu.processInput();
-                } catch(IOException ex) {
-                    System.out.println("Select a valid option!");
-                }
+                tryProcessInput();
                 i++;
             }
+    }
+
+    private void tryProcessInput() {
+        try {
+            menu.processInput();
+        } catch(IOException ex) {
+            System.out.println("Select a valid option!");
+        }
     }
 }
