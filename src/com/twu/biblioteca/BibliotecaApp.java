@@ -9,12 +9,15 @@ public class BibliotecaApp {
 
     private Menu menu = new Menu();
 
+    private Library lib;
+
     public BibliotecaApp() {
         buildMenu();
     }
 
     public BibliotecaApp(Book ...books) {
-
+        this();
+        this.lib = new Library(books);
     }
 
     public void showWelcomeMessage() {
@@ -22,7 +25,7 @@ public class BibliotecaApp {
     }
 
     private void buildMenu() {
-        menu.addOption("List Books");
+        menu.addOption("List Books", () -> lib.listBooks());
         menu.addOption("Quit");
     }
 
@@ -36,6 +39,7 @@ public class BibliotecaApp {
             menu.show();
             int i = 0;
             while(i < inputLoopUpperBound) {
+                System.out.println();
                 tryProcessInput();
                 i++;
             }

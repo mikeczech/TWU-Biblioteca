@@ -51,7 +51,7 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n" +
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
                 "Select a valid option!\n", outContent.toString());
     }
 
@@ -63,8 +63,8 @@ public class BibliotecaAppTest {
 
         app.start(2);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n" +
-                "Select a valid option!\n" +
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
+                "Select a valid option!\n\n" +
                 "Select a valid option!\n", outContent.toString());
     }
 
