@@ -84,4 +84,15 @@ public class BibliotecaAppTest {
                 "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
     }
 
+    @Test
+    public void whenSelectingQuitNoFurtherOutputIsShown() {
+        BibliotecaApp app = new BibliotecaApp();
+        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
+        System.setIn(in);
+
+        app.start(1);
+
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
+    }
+
 }
