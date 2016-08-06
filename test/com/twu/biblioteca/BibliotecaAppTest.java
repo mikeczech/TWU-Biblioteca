@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.Year;
 
 import static org.junit.Assert.*;
 
@@ -38,7 +37,7 @@ public class BibliotecaAppTest {
 
         app.startAndThenQuit();
 
-        assertEquals("Welcome to Biblioteca!\n\n1) List Books\n2) Quit\n", outContent.toString());
+        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
     }
 
 }
