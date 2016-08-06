@@ -38,4 +38,7 @@ public class BibliotecaApp {
         System.out.println("Hello, world!");
     }
 
+    public void start(int i) {
+
+    }
 }

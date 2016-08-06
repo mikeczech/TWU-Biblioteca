@@ -37,7 +37,7 @@ public class BibliotecaAppTest {
     public void afterShowingTheWelcomeMessageTheMenuShouldAppear() {
         BibliotecaApp app = new BibliotecaApp();
 
-        app.start();
+        app.start(0);
 
         assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
     }
