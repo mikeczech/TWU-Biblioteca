@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 
+import java.io.IOException;
+
 public class BibliotecaApp {
 
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca!";
@@ -21,9 +23,15 @@ public class BibliotecaApp {
     }
 
     public void startAndThenQuit() {
-        showWelcomeMessage();
-        System.out.println();
-        menu.show();
+        try {
+            showWelcomeMessage();
+            System.out.println();
+            menu.show();
+            menu.processInput();
+        } catch(IOException ex) {
+            System.out.println();
+            System.out.println("Select a valid option!");
+        }
     }
 
     public static void main(String[] args) {
