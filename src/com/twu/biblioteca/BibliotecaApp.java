@@ -12,12 +12,13 @@ public class BibliotecaApp {
     private static final String UNSUCCESSFUL_RETURN_MESSAGE = "That is not a valid book to return.";
     private static final String SUCCESSFUL_CHECKOUT_MESSAGE = "Thank you! Enjoy the book";
     private static final String UNSUCCESSFUL_CHECKOUT_MESSAGE = "That book is not available.";
+    private static final String SELECT_BOOKID_MESSAGE = "Book ID: ";
 
     private Menu menu;
 
     private Library lib;
 
-    private boolean stop = false;
+    private boolean stopInputLoop = false;
 
     private Scanner inputScanner;
 
@@ -31,41 +32,69 @@ public class BibliotecaApp {
         menu.addOption("List Books", () -> showLibrary());
         menu.addOption("Check-out Book", () -> tryToCheckoutBook());
         menu.addOption("Return Book", () -> tryToReturnBook());
-        menu.addOption("Quit", () -> stop = true);
+        menu.addOption("Quit", () -> quit());
     }
 
     private void showLibrary() {
-        System.out.print(lib);
-    }
-
-    private void tryToReturnBook() {
-        try {
-            int input = requestBookId();
-            lib.returnBookWithGivenId(input - 1);
-            System.out.println(SUCCESSFUL_RETURN_MESSAGE);
-        } catch(IllegalStateException | IllegalArgumentException ex) {
-            System.out.println();
-            System.out.println(UNSUCCESSFUL_RETURN_MESSAGE);
-        }
-    }
-
-    private int requestBookId() {
-        System.out.print("Book ID: ");
-        if(!inputScanner.hasNextLine())
-            throw new IllegalStateException("No input was given.");
-        return Integer.parseInt(inputScanner.nextLine());
+        System.out.print(lib.toString());
     }
 
     private void tryToCheckoutBook() {
         try {
             int input = requestBookId();
             lib.checkoutBookWithId(input - 1);
-            System.out.println(SUCCESSFUL_CHECKOUT_MESSAGE);
+            showSuccessfulCheckoutMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
-            System.out.println();
-            System.out.println(UNSUCCESSFUL_CHECKOUT_MESSAGE);
+            showUnsuccessfulCheckoutMessage();
         }
     }
+
+    private void showSuccessfulCheckoutMessage() {
+        System.out.println(SUCCESSFUL_CHECKOUT_MESSAGE);
+    }
+
+    private void showUnsuccessfulCheckoutMessage() {
+        System.out.println();
+        System.out.println(UNSUCCESSFUL_CHECKOUT_MESSAGE);
+    }
+
+    private void tryToReturnBook() {
+        try {
+            int input = requestBookId();
+            lib.returnBookWithGivenId(input - 1);
+            showSuccessfulReturnMessage();
+        } catch(IllegalStateException | IllegalArgumentException ex) {
+            showUnsuccessfulReturnMessage();
+        }
+    }
+
+    private void showSuccessfulReturnMessage() {
+        System.out.println(SUCCESSFUL_RETURN_MESSAGE);
+    }
+
+    private void showUnsuccessfulReturnMessage() {
+        System.out.println();
+        System.out.println(UNSUCCESSFUL_RETURN_MESSAGE);
+    }
+
+    private int requestBookId() {
+        showPleaseSelectBookIdMessage();
+        if(!inputScanner.hasNextLine())
+            throw new IllegalStateException("No input was given.");
+        return Integer.parseInt(inputScanner.nextLine());
+    }
+
+    private void showPleaseSelectBookIdMessage() {
+        System.out.print(SELECT_BOOKID_MESSAGE);
+    }
+
+
+    private void quit() {
+        stopInputLoop = true;
+    }
+
+
+
 
     protected BibliotecaApp() {
         this(new Scanner(""));
@@ -76,28 +105,14 @@ public class BibliotecaApp {
         this.lib = new Library(books);
     }
 
-    public static void main(String[] args) {
-        BibliotecaApp app = new BibliotecaApp(
-                new Scanner(System.in),
-                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
-                new Book("Animal Farm", "George Orwell", Year.of(1945)),
-                new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", Year.of(1979))
-        );
-        app.start();
-    }
-
     protected void start(int inputLoopUpperBound) {
             showWelcomeMessage();
             showMainMenu();
             int i = 0;
-            while((i < inputLoopUpperBound && !stop)) {
+            while((i < inputLoopUpperBound && !stopInputLoop)) {
                 readAndProcessInput();
                 i++;
             }
-    }
-
-    public void start() {
-        start(Integer.MAX_VALUE);
     }
 
     protected void showWelcomeMessage() {
@@ -120,5 +135,21 @@ public class BibliotecaApp {
         } catch(IOException ex) {
             System.out.println(INVALID_OPTION_MESSAGE);
         }
+    }
+
+
+
+    public static void main(String[] args) {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner(System.in),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945)),
+                new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", Year.of(1979))
+        );
+        app.start();
+    }
+
+    public void start() {
+        start(Integer.MAX_VALUE);
     }
 }
