@@ -19,6 +19,8 @@ public class BibliotecaApp {
 
     private void buildMenu() {
         menu.addOption("List Books", () -> lib.listBooks());
+        menu.addOption("Check-out Book", () -> System.out.print("checkout"));
+        menu.addOption("Return Book", () -> System.out.print("return"));
         menu.addOption("Quit", () -> stop = true);
     }
 

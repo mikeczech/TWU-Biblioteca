@@ -35,7 +35,7 @@ public class BibliotecaAppTest {
     @Test
     public void whenSelectingAnInvalidOptionAMessageIsShown() {
         BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("c".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("e".getBytes());
         System.setIn(in);
 
         app.start(1);
@@ -47,7 +47,7 @@ public class BibliotecaAppTest {
     @Test
     public void afterSelectingAnInvalidOptionWeCanChooseAnotherOne() {
         BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("c\nc".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("e\ne".getBytes());
         System.setIn(in);
 
         app.start(2);
@@ -76,7 +76,7 @@ public class BibliotecaAppTest {
     @Test
     public void whenSelectingQuitNoFurtherOutputIsShown() {
         BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("d".getBytes());
         System.setIn(in);
 
         app.start(1);
