@@ -96,7 +96,7 @@ public class BibliotecaAppTest {
                 new Book("Animal Farm", "George Orwell", Year.of(1945))
         );
 
-        app.start(1);
+        app.start(2);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
                 "(1) Brave New World, Aldous Huxley, 1932 [NOT AVAILABLE]\n" +
