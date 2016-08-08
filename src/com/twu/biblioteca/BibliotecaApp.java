@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class BibliotecaApp {
 
@@ -19,7 +20,9 @@ public class BibliotecaApp {
 
     private void buildMenu() {
         menu.addOption("List Books", () -> lib.listBooks());
-        menu.addOption("Check-out Book", () -> System.out.print("checkout"));
+        menu.addOption("Check-out Book", () -> {
+            System.out.print("Book ID: ");
+        });
         menu.addOption("Return Book", () -> System.out.print("return"));
         menu.addOption("Quit", () -> stop = true);
     }
