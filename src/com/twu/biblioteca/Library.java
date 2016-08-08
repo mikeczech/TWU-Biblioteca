@@ -27,10 +27,10 @@ public class Library {
     }
 
     public void checkout(int i) {
-        
+        checkedOut.add(books.get(i));
     }
 
     public boolean isCheckedOut(int i) {
-        return false;
+        return checkedOut.contains(books.get(i));
     }
 }
