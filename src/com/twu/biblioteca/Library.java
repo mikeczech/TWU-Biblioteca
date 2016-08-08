@@ -40,6 +40,7 @@ public class Library {
     }
 
     public boolean isCheckedOut(int bookId) {
-        return checkedOut.contains(books.get(bookId));
+        Book book = tryToGetBookById(bookId);
+        return checkedOut.contains(book);
     }
 }
