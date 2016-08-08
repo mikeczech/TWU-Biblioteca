@@ -17,6 +17,7 @@ public class BibliotecaAppTest {
     private static final String MAIN_MENU = "a) List Books\nb) Check-out Book\nc) Return Book\nd) Quit\n";
     private static final String WELCOME_MESSAGE = "Welcome to Biblioteca!\n\n";
     private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
+    private static final String INVALID_BOOK_MESSAGE = "That book is not available.\n";
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
@@ -129,7 +130,7 @@ public class BibliotecaAppTest {
         app.start(2);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n"
-                + "Book ID: \nThat book is not available.\n", outContent.toString());
+                + "Book ID: \n" + INVALID_BOOK_MESSAGE, outContent.toString());
     }
 
     @Test
@@ -142,7 +143,7 @@ public class BibliotecaAppTest {
         app.start(1);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
-                "That book is not available.\n", outContent.toString());
+                INVALID_BOOK_MESSAGE, outContent.toString());
     }
 
     @Test
@@ -155,6 +156,6 @@ public class BibliotecaAppTest {
         app.start(1);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
-                "That book is not available.\n", outContent.toString());
+                INVALID_BOOK_MESSAGE, outContent.toString());
     }
 }
