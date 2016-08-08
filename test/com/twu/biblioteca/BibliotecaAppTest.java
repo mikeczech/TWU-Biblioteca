@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class BibliotecaAppTest {
 
-    private static final String MAIN_MENU = "a) List Books\nb) Quit\n";
+    private static final String MAIN_MENU = "a) List Books\nb) Check-out Book\nc) Return Book\nd) Quit\n";
     private static final String WELCOME_MESSAGE = "Welcome to Biblioteca!\n\n";
     private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
 
