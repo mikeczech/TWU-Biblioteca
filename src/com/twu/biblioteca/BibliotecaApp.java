@@ -17,18 +17,14 @@ public class BibliotecaApp {
         buildMenu();
     }
 
-    public BibliotecaApp(Book ...books) {
-        this();
-        this.lib = new Library(books);
-    }
-
-    public void showWelcomeMessage() {
-        System.out.println(WELCOME_MESSAGE);
-    }
-
     private void buildMenu() {
         menu.addOption("List Books", () -> lib.listBooks());
         menu.addOption("Quit", () -> stop = true);
+    }
+
+    public BibliotecaApp(Book ...books) {
+        this();
+        this.lib = new Library(books);
     }
 
     public static void main(String[] args) {
@@ -37,8 +33,7 @@ public class BibliotecaApp {
 
     public void start(int inputLoopUpperBound) {
             showWelcomeMessage();
-            System.out.println();
-            menu.show();
+            showMainMenu();
             int i = 0;
             while(i < inputLoopUpperBound && !stop) {
                 System.out.println();
@@ -46,6 +41,16 @@ public class BibliotecaApp {
                 i++;
             }
     }
+
+    protected void showWelcomeMessage() {
+        System.out.println(WELCOME_MESSAGE);
+    }
+
+    protected void showMainMenu() {
+        System.out.println();
+        menu.show();
+    }
+
 
     private void tryProcessInput() {
         try {
