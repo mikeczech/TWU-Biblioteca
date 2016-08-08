@@ -157,7 +157,7 @@ public class BibliotecaAppTest {
                 INVALID_BOOK_MESSAGE, outContent.toString());
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void whenSelectingReturnBookTheUserIsAskedtoProvideABookID() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("c\n1"),
@@ -179,7 +179,7 @@ public class BibliotecaAppTest {
         app.start(3);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n\n" +
-                "Book ID: " + "Thank you for returning the book.\n" +
+                "Book ID: " + "Thank you for returning the book.\n\n" +
                 "(1) Brave New World, Aldous Huxley, 1932\n", outContent.toString());
     }
 }

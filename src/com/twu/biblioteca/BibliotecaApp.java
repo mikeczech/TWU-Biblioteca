@@ -30,6 +30,7 @@ public class BibliotecaApp {
         menu.addOption("Return Book", () -> {
             requestBookId();
             System.out.println("Thank you for returning the book.");
+            lib.returnBookWithGivenId(0);
         });
         menu.addOption("Quit", () -> stop = true);
     }
