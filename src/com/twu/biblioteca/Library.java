@@ -47,6 +47,6 @@ public class Library {
     }
 
     public void returnBook(int bookId) {
-
+        throw new IllegalArgumentException();
     }
 }
