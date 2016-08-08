@@ -33,13 +33,15 @@ public class BibliotecaApp {
 
     private void checkOutBook() {
         System.out.print("Book ID: ");
-        String input = scanner.nextLine();
-        tryCheckOutBook(Integer.parseInt(input)-1);
+        tryToCheckoutBook();
     }
 
-    private void tryCheckOutBook(int bookId) {
+    private void tryToCheckoutBook() {
         try {
-            lib.checkoutBookWithId(bookId);
+            if(!scanner.hasNextLine())
+                throw new IllegalStateException("No input was given.");
+            int input = Integer.parseInt(scanner.nextLine());
+            lib.checkoutBookWithId(input - 1);
         } catch(IllegalStateException | IllegalArgumentException ex) {
             System.out.println();
             System.out.println("That book is not available.");

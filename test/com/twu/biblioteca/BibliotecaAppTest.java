@@ -79,9 +79,12 @@ public class BibliotecaAppTest {
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n", outContent.toString());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void whenSelectingCheckoutBookTheUserIsAskedtoProvideABookID() {
-        BibliotecaApp app = new BibliotecaApp(new Scanner("b\n"));
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n1"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
+        );
 
         app.start(1);
 
@@ -129,4 +132,16 @@ public class BibliotecaAppTest {
                 + "Book ID: \nThat book is not available.\n", outContent.toString());
     }
 
+    @Test
+    public void whenSelectingCheckoutBookAndProvidingNoBookIdAMessageAppears() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
+        );
+
+        app.start(1);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
+                "That book is not available.\n", outContent.toString());
+    }
 }
