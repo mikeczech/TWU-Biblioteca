@@ -26,21 +26,21 @@ public class BibliotecaApp {
     private void buildMenu() {
         menu = new Menu(scanner);
         menu.addOption("List Books", () -> lib.listBooks());
-        menu.addOption("Check-out Book", () -> checkOutBook());
+        menu.addOption("Check-out Book", () -> tryToCheckoutBook());
         menu.addOption("Return Book", () -> System.out.print("return"));
         menu.addOption("Quit", () -> stop = true);
     }
 
-    private void checkOutBook() {
+    private int requestBookId() {
         System.out.print("Book ID: ");
-        tryToCheckoutBook();
+        if(!scanner.hasNextLine())
+            throw new IllegalStateException("No input was given.");
+        return Integer.parseInt(scanner.nextLine());
     }
 
     private void tryToCheckoutBook() {
         try {
-            if(!scanner.hasNextLine())
-                throw new IllegalStateException("No input was given.");
-            int input = Integer.parseInt(scanner.nextLine());
+            int input = requestBookId();
             lib.checkoutBookWithId(input - 1);
         } catch(IllegalStateException | IllegalArgumentException ex) {
             System.out.println();
