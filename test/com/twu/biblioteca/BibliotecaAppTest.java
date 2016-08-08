@@ -160,7 +160,7 @@ public class BibliotecaAppTest {
     @Test
     public void whenSelectingAnInvalidBookToReturnAMessageShouldAppear() {
         BibliotecaApp app = new BibliotecaApp(
-                new Scanner("c\n1"),
+                new Scanner("c\n1\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
         );
 

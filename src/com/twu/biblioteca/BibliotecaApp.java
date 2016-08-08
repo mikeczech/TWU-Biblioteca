@@ -28,9 +28,13 @@ public class BibliotecaApp {
         menu.addOption("List Books", () -> lib.listBooks());
         menu.addOption("Check-out Book", () -> tryToCheckoutBook());
         menu.addOption("Return Book", () -> {
-            int input = requestBookId();
-            System.out.println("Thank you for returning the book.");
-            lib.returnBookWithGivenId(input - 1);
+            try {
+                int input = requestBookId();
+                lib.returnBookWithGivenId(input - 1);
+                System.out.println("Thank you for returning the book.");
+            } catch(IllegalStateException | IllegalArgumentException ex) {
+                System.out.println("That is not a valid book to return.");
+            }
         });
         menu.addOption("Quit", () -> stop = true);
     }
