@@ -72,4 +72,10 @@ public class LibraryTest {
         lib.checkout(0);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void checkingCheckedOutStatusOfUnknownBookShouldFail() {
+        Library lib = new Library();
+        lib.isCheckedOut(0);
+    }
+
 }
