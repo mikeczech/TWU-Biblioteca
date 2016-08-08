@@ -78,4 +78,12 @@ public class LibraryTest {
         lib.isCheckedOut(0);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void checkingOutACheckedOutBookShouldFail() {
+        Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
+
+        lib.checkout(0);
+        lib.checkout(0);
+    }
+
 }
