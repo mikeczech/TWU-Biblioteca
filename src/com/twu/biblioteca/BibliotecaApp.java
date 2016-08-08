@@ -24,13 +24,15 @@ public class BibliotecaApp {
     private void buildMenu() {
         menu = new Menu(scanner);
         menu.addOption("List Books", () -> lib.listBooks());
-        menu.addOption("Check-out Book", () -> {
-            System.out.print("Book ID: ");
-            scanner.nextLine();
-            lib.checkoutBookWithId(0);
-        });
+        menu.addOption("Check-out Book", () -> checkOutBook());
         menu.addOption("Return Book", () -> System.out.print("return"));
         menu.addOption("Quit", () -> stop = true);
+    }
+
+    private void checkOutBook() {
+        System.out.print("Book ID: ");
+        String s = scanner.nextLine();
+        lib.checkoutBookWithId(0);
     }
 
     public BibliotecaApp() {
