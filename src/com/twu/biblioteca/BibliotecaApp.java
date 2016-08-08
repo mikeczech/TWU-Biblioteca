@@ -42,6 +42,7 @@ public class BibliotecaApp {
         try {
             int input = requestBookId();
             lib.checkoutBookWithId(input - 1);
+            System.out.println("Thank you! Enjoy the book");
         } catch(IllegalStateException | IllegalArgumentException ex) {
             System.out.println();
             System.out.println("That book is not available.");

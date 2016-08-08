@@ -89,7 +89,7 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: ", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n", outContent.toString());
     }
 
     @Test
@@ -101,7 +101,7 @@ public class BibliotecaAppTest {
 
         app.start(2);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n\n" , outContent.toString());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class BibliotecaAppTest {
 
         app.start(2);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n\n" +
                 "(1) Brave New World, Aldous Huxley, 1932\n", outContent.toString());
     }
 
@@ -127,7 +127,7 @@ public class BibliotecaAppTest {
 
         app.start(2);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n"
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n\n"
                 + "Book ID: \n" + INVALID_BOOK_MESSAGE, outContent.toString());
     }
 
