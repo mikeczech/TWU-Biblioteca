@@ -59,4 +59,11 @@ public class LibraryTest {
                 "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
     }
 
+    @Test
+    public void checkedOutBooksShouldBeMarkedAsCheckedOut() {
+        Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
+        lib.checkout(1);
+        assertTrue(lib.isCheckedOut(1));
+    }
+
 }

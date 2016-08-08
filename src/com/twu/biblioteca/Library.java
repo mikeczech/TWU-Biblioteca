@@ -22,4 +22,11 @@ public class Library {
         );
     }
 
+    public void checkout(int i) {
+        
+    }
+
+    public boolean isCheckedOut(int i) {
+        return false;
+    }
 }
