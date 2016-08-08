@@ -47,6 +47,7 @@ public class Library {
     }
 
     public void returnBook(int bookId) {
-        throw new IllegalArgumentException();
+        Book book = tryToGetBookById(bookId);
+        checkedOut.remove(book);
     }
 }
