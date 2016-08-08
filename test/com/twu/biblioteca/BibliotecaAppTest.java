@@ -157,8 +157,8 @@ public class BibliotecaAppTest {
                 INVALID_BOOK_MESSAGE, outContent.toString());
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void whenSelectingReturnBookTheUserIsAskedtoProvideABookID() {
+    @Test
+    public void whenSelectingAnInvalidBookToReturnAMessageShouldAppear() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("c\n1"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
@@ -166,7 +166,7 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you for returning the book.\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "That is not a valid book to return.\n", outContent.toString());
     }
 
     @Test
