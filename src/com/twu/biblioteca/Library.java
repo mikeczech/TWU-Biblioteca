@@ -21,9 +21,10 @@ public class Library {
     }
 
     public void listBooks() {
-        IntStream.range(0, books.size()).forEach(i ->
-                System.out.println("(" + (i+1) + ") " + books.get(i) +  " [" + (isCheckedOut(i) ? "NOT AVAILABLE" : "AVAILABLE") + "]")
-        );
+        IntStream.range(0, books.size()).forEach(i -> {
+            if (!isCheckedOut(i))
+                System.out.println("(" + (i + 1) + ") " + books.get(i));
+        });
     }
 
     public void checkoutBookWithId(int bookId) {
