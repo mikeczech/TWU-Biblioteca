@@ -45,4 +45,8 @@ public class Library {
         Book book = tryToGetBookById(bookId);
         return checkedOut.contains(book);
     }
+
+    public void returnBook(int bookId) {
+
+    }
 }

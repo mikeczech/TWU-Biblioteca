@@ -86,4 +86,10 @@ public class LibraryTest {
         lib.checkout(0);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void returningAnUnknownBookShouldFail() {
+        Library lib = new Library();
+        lib.returnBook(0);
+    }
+
 }
