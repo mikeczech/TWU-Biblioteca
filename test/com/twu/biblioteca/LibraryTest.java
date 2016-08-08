@@ -62,8 +62,8 @@ public class LibraryTest {
     @Test
     public void checkedOutBooksShouldBeMarkedAsCheckedOut() {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.checkout(1);
-        assertTrue(lib.isCheckedOut(1));
+        lib.checkout(0);
+        assertTrue(lib.isCheckedOut(0));
     }
 
 }
