@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,7 +66,7 @@ public class LibraryTest {
         assertTrue(lib.isCheckedOut(0));
     }
 
-    @Test(expected = InvalidArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void checkingOutAnUnknownBookShouldFail() {
         Library lib = new Library();
         lib.checkout(0);

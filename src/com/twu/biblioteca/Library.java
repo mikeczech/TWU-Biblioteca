@@ -26,11 +26,20 @@ public class Library {
         );
     }
 
-    public void checkout(int i) {
-        checkedOut.add(books.get(i));
+    public void checkout(int bookId) {
+        Book book = tryToGetBookById(bookId);
+        checkedOut.add(book);
     }
 
-    public boolean isCheckedOut(int i) {
-        return checkedOut.contains(books.get(i));
+    private Book tryToGetBookById(int bookId) {
+        try {
+            return books.get(bookId);
+        } catch(IndexOutOfBoundsException ex) {
+            throw new IllegalArgumentException(ex.getMessage());
+        }
+    }
+
+    public boolean isCheckedOut(int bookId) {
+        return checkedOut.contains(books.get(bookId));
     }
 }
