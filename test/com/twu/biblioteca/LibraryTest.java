@@ -102,4 +102,10 @@ public class LibraryTest {
         assertFalse(lib.isCheckedOut(0));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void returningANonCheckedOutBookShouldFail() {
+        Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
+        lib.returnBook(0);
+    }
+
 }
