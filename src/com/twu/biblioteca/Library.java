@@ -20,13 +20,6 @@ public class Library {
             this.books.add(b);
     }
 
-    public void listBooks() {
-        IntStream.range(0, books.size()).forEach(i -> {
-            if (!isCheckedOut(i))
-                System.out.println("(" + (i + 1) + ") " + books.get(i));
-        });
-    }
-
     public void checkoutBookWithId(int bookId) {
         Book book = tryToGetBookById(bookId);
         if(checkedOut.contains(book))
@@ -53,4 +46,15 @@ public class Library {
             throw new IllegalStateException("The book with the given ID is not checked out.");
         checkedOut.remove(book);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder libStrBuilder = new StringBuilder();
+        IntStream.range(0, books.size()).forEach(i -> {
+            if (!isCheckedOut(i))
+                libStrBuilder.append("(" + (i + 1) + ") " + books.get(i) + "\n");
+        });
+        return libStrBuilder.toString();
+    }
+
 }

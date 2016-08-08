@@ -22,31 +22,21 @@ public class LibraryTest {
     }
 
     @Test
-    public void listBooks() {
-        Library lib = new Library(new Book("", "", Year.of(0)));
-        lib.listBooks();
-        assertFalse(outContent.toString().isEmpty());
-    }
-
-    @Test
     public void emptyLibraryProducesNoOutput() {
         Library lib = new Library();
-        lib.listBooks();
-        assertTrue(outContent.toString().isEmpty());
+        assertEquals("", lib.toString());
     }
 
     @Test
     public void listedBookisBraveNewWorld() {
         Library lib = new Library(new Book("Brave New World", "Aldous Huxley", Year.of(1932)));
-        lib.listBooks();
-        assertEquals("(1) Brave New World, Aldous Huxley, 1932\n", outContent.toString());
+        assertEquals("(1) Brave New World, Aldous Huxley, 1932\n", lib.toString());
     }
 
     @Test
     public void listedBookisAnimalFarm() {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.listBooks();
-        assertEquals("(1) Animal Farm, George Orwell, 1945\n", outContent.toString());
+        assertEquals("(1) Animal Farm, George Orwell, 1945\n", lib.toString());
     }
 
     @Test
@@ -54,9 +44,8 @@ public class LibraryTest {
         Library lib = new Library(
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
                 new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.listBooks();
         assertEquals("(1) Brave New World, Aldous Huxley, 1932\n" +
-                "(2) Animal Farm, George Orwell, 1945\n", outContent.toString());
+                "(2) Animal Farm, George Orwell, 1945\n", lib.toString());
     }
 
     @Test

@@ -3,11 +3,9 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.Year;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
