@@ -15,6 +15,7 @@ public class BibliotecaAppTest {
     private static final String MAIN_MENU = "a) List Books\nb) Quit\n";
     private static final String WELCOME_MESSAGE = "Welcome to Biblioteca!\n\n";
     private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Before
@@ -81,15 +82,6 @@ public class BibliotecaAppTest {
         app.start(1);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n", outContent.toString());
-    }
-
-    @Test
-    public void selectingCheckoutBookShouldMakeTheUIAskForTheBookID() {
-        BibliotecaApp app = new BibliotecaApp();
-
-        app.start(1);
-
-        assertTrue(true);
     }
 
 }

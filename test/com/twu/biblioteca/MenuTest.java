@@ -125,5 +125,17 @@ public class MenuTest {
         assertEquals("Now we quit\n", outContent.toString());
     }
 
+    @Test
+    public void selectingParameterizedOptionShouldLeadToExpectedAction() throws IOException {
+        Menu menu = new Menu();
+        menu.addOption("Checkout Book", i -> System.out.println("Checked out book with id" + i));
+        ByteArrayInputStream in = new ByteArrayInputStream("b\n42".getBytes());
+        System.setIn(in);
+
+        menu.processInput();
+
+        assertEquals("Checked out book with id 42\n", outContent.toString());
+    }
+
 
 }

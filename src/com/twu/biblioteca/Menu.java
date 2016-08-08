@@ -43,7 +43,7 @@ public class Menu {
         addOption(option);
     }
 
-    public void addOption(String option, Consumer<Integer> consumer) {
-
+    public void addOption(String option, Consumer<Integer> action) {
     }
+
 }
