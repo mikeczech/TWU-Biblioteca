@@ -36,8 +36,7 @@ public class BibliotecaApp {
             showMainMenu();
             int i = 0;
             while(i < inputLoopUpperBound && !stop) {
-                System.out.println();
-                tryProcessInput();
+                readAndProcessInput();
                 i++;
             }
     }
@@ -51,6 +50,10 @@ public class BibliotecaApp {
         menu.show();
     }
 
+    protected void readAndProcessInput() {
+        System.out.println();
+        tryProcessInput();
+    }
 
     private void tryProcessInput() {
         try {
