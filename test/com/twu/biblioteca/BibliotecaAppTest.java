@@ -168,4 +168,18 @@ public class BibliotecaAppTest {
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you for returning the book.\n", outContent.toString());
     }
+
+    @Test
+    public void whenTheFirstBookIsReturnedTheBookShouldAppearAsAvailableAgain() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n1\nc\n1\na\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
+        );
+
+        app.start(3);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n\n" +
+                "Book ID: " + "Thank you for returning the book.\n" +
+                "(1) Brave New World, Aldous Huxley, 1932\n", outContent.toString());
+    }
 }
