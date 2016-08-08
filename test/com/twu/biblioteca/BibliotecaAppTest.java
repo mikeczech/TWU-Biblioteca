@@ -156,4 +156,16 @@ public class BibliotecaAppTest {
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
                 INVALID_BOOK_MESSAGE, outContent.toString());
     }
+
+    @Test
+    public void whenSelectingReturnBookTheUserIsAskedtoProvideABookID() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("c\n1"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
+        );
+
+        app.start(1);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you for returning the book.\n", outContent.toString());
+    }
 }
