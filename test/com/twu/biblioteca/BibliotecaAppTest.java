@@ -67,8 +67,8 @@ public class BibliotecaAppTest {
         app.start(1);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" +
-                "(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n" +
-                "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
+                "(1) Brave New World, Aldous Huxley, 1932\n" +
+                "(2) Animal Farm, George Orwell, 1945\n", outContent.toString());
     }
 
     @Test
@@ -101,8 +101,7 @@ public class BibliotecaAppTest {
 
         app.start(2);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
-                "(1) Brave New World, Aldous Huxley, 1932 [NOT AVAILABLE]\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n", outContent.toString());
     }
 
     @Test
@@ -116,8 +115,7 @@ public class BibliotecaAppTest {
         app.start(2);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
-                "(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n" +
-                "(2) Animal Farm, George Orwell, 1945 [NOT AVAILABLE]\n", outContent.toString());
+                "(1) Brave New World, Aldous Huxley, 1932\n", outContent.toString());
     }
 
     @Test
