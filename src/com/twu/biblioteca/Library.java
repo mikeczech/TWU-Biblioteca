@@ -48,6 +48,8 @@ public class Library {
 
     public void returnBook(int bookId) {
         Book book = tryToGetBookById(bookId);
+        if(!checkedOut.contains(book))
+            throw new IllegalStateException("The book with the given ID is not checked out.");
         checkedOut.remove(book);
     }
 }
