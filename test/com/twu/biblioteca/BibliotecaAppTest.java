@@ -166,7 +166,7 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "That is not a valid book to return.\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\nThat is not a valid book to return.\n", outContent.toString());
     }
 
     @Test

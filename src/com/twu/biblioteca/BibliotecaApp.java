@@ -37,6 +37,7 @@ public class BibliotecaApp {
             lib.returnBookWithGivenId(input - 1);
             System.out.println("Thank you for returning the book.");
         } catch(IllegalStateException | IllegalArgumentException ex) {
+            System.out.println();
             System.out.println("That is not a valid book to return.");
         }
     }
