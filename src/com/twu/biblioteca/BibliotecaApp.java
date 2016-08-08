@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.io.IOException;
+import java.time.Year;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -57,7 +58,7 @@ public class BibliotecaApp {
         }
     }
 
-    public BibliotecaApp() {
+    protected BibliotecaApp() {
         this(new Scanner(""));
     }
 
@@ -67,17 +68,27 @@ public class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello, world!");
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner(System.in),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945)),
+                new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", Year.of(1979))
+        );
+        app.start();
     }
 
-    public void start(int inputLoopUpperBound) {
+    protected void start(int inputLoopUpperBound) {
             showWelcomeMessage();
             showMainMenu();
             int i = 0;
-            while(i < inputLoopUpperBound && !stop) {
+            while((i < inputLoopUpperBound && !stop)) {
                 readAndProcessInput();
                 i++;
             }
+    }
+
+    public void start() {
+        start(Integer.MAX_VALUE);
     }
 
     protected void showWelcomeMessage() {
