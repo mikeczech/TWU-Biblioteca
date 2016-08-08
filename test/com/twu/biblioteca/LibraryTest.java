@@ -92,4 +92,14 @@ public class LibraryTest {
         lib.returnBook(0);
     }
 
+    @Test
+    public void returningACheckedOutBookShouldSucceed() {
+        Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
+        lib.checkout(0);
+
+        lib.returnBook(0);
+
+        assertFalse(lib.isCheckedOut(0));
+    }
+
 }
