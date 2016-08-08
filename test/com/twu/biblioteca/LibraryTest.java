@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,6 +65,12 @@ public class LibraryTest {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
         lib.checkout(0);
         assertTrue(lib.isCheckedOut(0));
+    }
+
+    @Test(expected = InvalidArgumentException.class)
+    public void checkingOutAnUnknownBookShouldFail() {
+        Library lib = new Library();
+        lib.checkout(0);
     }
 
 }
