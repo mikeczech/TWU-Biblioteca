@@ -29,4 +29,25 @@ public class Book {
     public String toString() {
         return String.join(", ", title, author, publicationYear.toString());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (!title.equals(book.title)) return false;
+        if (!author.equals(book.author)) return false;
+        return publicationYear.equals(book.publicationYear);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + author.hashCode();
+        result = 31 * result + publicationYear.hashCode();
+        return result;
+    }
 }
