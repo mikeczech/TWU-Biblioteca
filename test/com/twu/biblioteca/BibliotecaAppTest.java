@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.time.Year;
 
@@ -13,6 +12,9 @@ import static org.junit.Assert.*;
 
 public class BibliotecaAppTest {
 
+    private static final String MAIN_MENU = "a) List Books\nb) Quit\n";
+    private static final String WELCOME_MESSAGE = "Welcome to Biblioteca!\n\n";
+    private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Before
@@ -21,26 +23,12 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void showWelcomeMessage() {
-        BibliotecaApp app = new BibliotecaApp();
-        app.showWelcomeMessage();
-        assertFalse(outContent.toString().isEmpty());
-    }
-
-    @Test
-    public void welcomeMessageIsSpecificText() {
-        BibliotecaApp app = new BibliotecaApp();
-        app.showWelcomeMessage();
-        assertEquals("Welcome to Biblioteca!\n", outContent.toString());
-    }
-
-    @Test
     public void afterShowingTheWelcomeMessageTheMenuShouldAppear() {
         BibliotecaApp app = new BibliotecaApp();
 
         app.start(0);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU, outContent.toString());
     }
 
     @Test
@@ -51,8 +39,8 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
-                "Select a valid option!\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" +
+                INVALID_OPTION_MESSAGE, outContent.toString());
     }
 
     @Test
@@ -63,9 +51,9 @@ public class BibliotecaAppTest {
 
         app.start(2);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
-                "Select a valid option!\n\n" +
-                "Select a valid option!\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" +
+                INVALID_OPTION_MESSAGE + "\n" +
+                INVALID_OPTION_MESSAGE, outContent.toString());
     }
 
     @Test
@@ -79,7 +67,7 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n" +
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" +
                 "(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n" +
                 "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
     }
@@ -92,7 +80,16 @@ public class BibliotecaAppTest {
 
         app.start(1);
 
-        assertEquals("Welcome to Biblioteca!\n\na) List Books\nb) Quit\n\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n", outContent.toString());
+    }
+
+    @Test
+    public void selectingCheckoutBookShouldMakeTheUIAskForTheBookID() {
+        BibliotecaApp app = new BibliotecaApp();
+
+        app.start(1);
+
+        assertTrue(true);
     }
 
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 /**
  * Created by mczech on 05/08/16.
@@ -40,5 +41,9 @@ public class Menu {
     public void addOption(String option, Action action) {
         actions.put(nextOptionKey, action);
         addOption(option);
+    }
+
+    public void addOption(String option, Consumer<Integer> consumer) {
+
     }
 }
