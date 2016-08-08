@@ -62,14 +62,14 @@ public class LibraryTest {
     @Test
     public void checkedOutBooksShouldBeMarkedAsCheckedOut() {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.checkout(0);
+        lib.checkoutBookWithId(0);
         assertTrue(lib.isCheckedOut(0));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void checkingOutAnUnknownBookShouldFail() {
         Library lib = new Library();
-        lib.checkout(0);
+        lib.checkoutBookWithId(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -81,23 +81,23 @@ public class LibraryTest {
     @Test(expected = IllegalStateException.class)
     public void checkingOutACheckedOutBookShouldFail() {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.checkout(0);
+        lib.checkoutBookWithId(0);
 
-        lib.checkout(0);
+        lib.checkoutBookWithId(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void returningAnUnknownBookShouldFail() {
         Library lib = new Library();
-        lib.returnBook(0);
+        lib.returnBookWithGivenId(0);
     }
 
     @Test
     public void returningACheckedOutBookShouldSucceed() {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.checkout(0);
+        lib.checkoutBookWithId(0);
 
-        lib.returnBook(0);
+        lib.returnBookWithGivenId(0);
 
         assertFalse(lib.isCheckedOut(0));
     }
@@ -105,7 +105,7 @@ public class LibraryTest {
     @Test(expected = IllegalStateException.class)
     public void returningANonCheckedOutBookShouldFail() {
         Library lib = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        lib.returnBook(0);
+        lib.returnBookWithGivenId(0);
     }
 
 }

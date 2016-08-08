@@ -26,7 +26,7 @@ public class Library {
         );
     }
 
-    public void checkout(int bookId) {
+    public void checkoutBookWithId(int bookId) {
         Book book = tryToGetBookById(bookId);
         if(checkedOut.contains(book))
             throw new IllegalStateException("The book with the given ID is not available anymore.");
@@ -46,7 +46,7 @@ public class Library {
         return checkedOut.contains(book);
     }
 
-    public void returnBook(int bookId) {
+    public void returnBookWithGivenId(int bookId) {
         Book book = tryToGetBookById(bookId);
         if(!checkedOut.contains(book))
             throw new IllegalStateException("The book with the given ID is not checked out.");
