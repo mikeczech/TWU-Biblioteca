@@ -102,6 +102,21 @@ public class BibliotecaAppTest {
     }
 
     @Test
+    public void whenSelectingCheckoutBookAndProvidingTheSecondBookIDTheSecondBookShouldAppearAsCheckedOut() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n2\na\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945))
+        );
+
+        app.start(2);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
+                "(1) Brave New World, Aldous Huxley, 1932 [AVAILABLE]\n" +
+                "(2) Animal Farm, George Orwell, 1945 [NOT AVAILABLE]\n", outContent.toString());
+    }
+
+    @Test
     public void whenSelectingCheckoutBookAndTheBookIsNotAvailableAMessageAppears() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n1\nb\n1\n"),
