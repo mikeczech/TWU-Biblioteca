@@ -92,15 +92,26 @@ public class BibliotecaAppTest {
     public void whenSelectingCheckoutBookAndProvidingABookIDTheSelectedBookShouldAppearAsCheckedOut() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n1\na\n"),
-                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
-                new Book("Animal Farm", "George Orwell", Year.of(1945))
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
         );
 
         app.start(2);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
-                "(1) Brave New World, Aldous Huxley, 1932 [NOT AVAILABLE]\n" +
-                "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
+                "(1) Brave New World, Aldous Huxley, 1932 [NOT AVAILABLE]\n", outContent.toString());
+    }
+
+    @Test
+    public void whenSelectingCheckoutBookAndTheBookIsNotAvailableAMessageAppears() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n1\nb\n1\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
+        );;
+
+        app.start(2);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n"
+                + "Book ID: \nThat book is not available.", outContent.toString());
     }
 
 }
