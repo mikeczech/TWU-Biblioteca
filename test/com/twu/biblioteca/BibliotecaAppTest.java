@@ -106,12 +106,12 @@ public class BibliotecaAppTest {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n1\nb\n1\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
-        );;
+        );
 
         app.start(2);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n"
-                + "Book ID: \nThat book is not available.", outContent.toString());
+                + "Book ID: \nThat book is not available.\n", outContent.toString());
     }
 
 }

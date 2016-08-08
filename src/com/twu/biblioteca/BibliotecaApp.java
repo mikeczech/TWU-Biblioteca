@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -32,7 +34,16 @@ public class BibliotecaApp {
     private void checkOutBook() {
         System.out.print("Book ID: ");
         String s = scanner.nextLine();
-        lib.checkoutBookWithId(0);
+        tryCheckOutBook(0);
+    }
+
+    private void tryCheckOutBook(int bookId) {
+        try {
+            lib.checkoutBookWithId(bookId);
+        } catch(IllegalStateException | IllegalArgumentException ex) {
+            System.out.println();
+            System.out.println("That book is not available.");
+        }
     }
 
     public BibliotecaApp() {
