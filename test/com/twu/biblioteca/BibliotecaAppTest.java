@@ -144,4 +144,17 @@ public class BibliotecaAppTest {
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
                 "That book is not available.\n", outContent.toString());
     }
+
+    @Test
+    public void whenSelectingCheckoutBookAndProvidingAnInvalidBookIdAMessageAppears() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\nFOO\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932))
+        );
+
+        app.start(1);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
+                "That book is not available.\n", outContent.toString());
+    }
 }
