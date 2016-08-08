@@ -1,7 +1,9 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 /**
@@ -10,6 +12,8 @@ import java.util.stream.IntStream;
 public class Library {
 
     private List<Book> books = new ArrayList<>();
+
+    private Set<Book> checkedOut = new HashSet<>();
 
     public Library(Book ...books) {
         for(Book b : books)

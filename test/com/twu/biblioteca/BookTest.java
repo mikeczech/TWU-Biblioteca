@@ -28,4 +28,11 @@ public class BookTest {
         assertEquals(Year.of(1932), book.getPublicationYear());
     }
 
+    @Test
+    public void bookWithEqualPropertiesShouldBeEqual() {
+        Book bookA = new Book("Brave New World", "Aldous Huxley", Year.of(1932));
+        Book bookB = new Book("Animal Farm", "George Orwell", Year.of(1945));
+        assertTrue(bookA.equals(bookB));
+    }
+
 }
