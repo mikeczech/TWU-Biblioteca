@@ -28,6 +28,8 @@ public class Library {
 
     public void checkout(int bookId) {
         Book book = tryToGetBookById(bookId);
+        if(checkedOut.contains(book))
+            throw new IllegalStateException("The book with the given ID is not available anymore.");
         checkedOut.add(book);
     }
 
