@@ -31,8 +31,15 @@ public class BookTest {
     @Test
     public void bookWithEqualPropertiesShouldBeEqual() {
         Book bookA = new Book("Brave New World", "Aldous Huxley", Year.of(1932));
-        Book bookB = new Book("Animal Farm", "George Orwell", Year.of(1945));
+        Book bookB = new Book("Brave New World", "Aldous Huxley", Year.of(1932));
         assertTrue(bookA.equals(bookB));
+    }
+
+    @Test
+    public void bookWithDifferentPropertiesShouldBeNotEqual() {
+        Book bookA = new Book("Brave New World", "Aldous Huxley", Year.of(1932));
+        Book bookB = new Book("Animal Farm", "George Orwell", Year.of(1932));
+        assertFalse(bookA.equals(bookB));
     }
 
 }
