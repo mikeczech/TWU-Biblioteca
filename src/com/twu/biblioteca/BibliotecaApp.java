@@ -33,8 +33,8 @@ public class BibliotecaApp {
 
     private void checkOutBook() {
         System.out.print("Book ID: ");
-        String s = scanner.nextLine();
-        tryCheckOutBook(0);
+        String input = scanner.nextLine();
+        tryCheckOutBook(Integer.parseInt(input)-1);
     }
 
     private void tryCheckOutBook(int bookId) {
