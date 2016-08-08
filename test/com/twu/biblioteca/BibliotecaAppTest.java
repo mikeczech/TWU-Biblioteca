@@ -182,4 +182,20 @@ public class BibliotecaAppTest {
                 "Book ID: " + "Thank you for returning the book.\n\n" +
                 "(1) Brave New World, Aldous Huxley, 1932\n", outContent.toString());
     }
+
+    @Test
+    public void whenTheSecondBookIsReturnedTheBookShouldAppearAsAvailableAgain() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n2\nc\n2\na\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945))
+        );
+
+        app.start(3);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "Thank you! Enjoy the book\n\n" +
+                "Book ID: " + "Thank you for returning the book.\n\n" +
+                "(1) Brave New World, Aldous Huxley, 1932\n" +
+                "(2) Animal Farm, George Orwell, 1945\n", outContent.toString());
+    }
 }
