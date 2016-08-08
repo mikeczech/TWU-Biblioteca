@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -60,10 +61,8 @@ public class MenuTest {
 
     @Test
     public void selectionOfOptionShouldLeadTotheExpectedAction() throws IOException {
-        Menu menu = new Menu();
+        Menu menu = new Menu(new Scanner("a\n"));
         menu.addOption("List Books", () -> System.out.println("All the books"));
-        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
-        System.setIn(in);
 
         menu.processInput();
 
@@ -72,10 +71,8 @@ public class MenuTest {
 
     @Test
     public void appliedActionShouldDependOnOption() throws IOException {
-        Menu menu = new Menu();
+        Menu menu = new Menu(new Scanner("a\n"));
         menu.addOption("Quit", () -> System.out.println("Now we quit"));
-        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
-        System.setIn(in);
 
         menu.processInput();
 
@@ -84,41 +81,33 @@ public class MenuTest {
 
     @Test(expected = IOException.class)
     public void stringAsInputShouldFail() throws IOException {
-        Menu menu = new Menu();
+        Menu menu = new Menu(new Scanner("aba\n"));
         menu.addOption("Quit");
-        ByteArrayInputStream in = new ByteArrayInputStream("aba".getBytes());
-        System.setIn(in);
 
         menu.processInput();
     }
 
     @Test(expected = IOException.class)
     public void selectingUnknownOptionShouldFail() throws IOException {
-        Menu menu = new Menu();
+        Menu menu = new Menu(new Scanner("b\n"));
         menu.addOption("Quit");
-        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
-        System.setIn(in);
 
         menu.processInput();
     }
 
     @Test(expected = IOException.class)
     public void givingEmptyInputShouldFail() throws IOException {
-        Menu menu = new Menu();
+        Menu menu = new Menu(new Scanner(""));
         menu.addOption("Quit");
-        ByteArrayInputStream in = new ByteArrayInputStream("".getBytes());
-        System.setIn(in);
 
         menu.processInput();
     }
 
     @Test
     public void selectingSecondOptionLeadsToExpectedAction() throws IOException {
-        Menu menu = new Menu();
+        Menu menu = new Menu(new Scanner("b\n"));
         menu.addOption("List Books", () -> System.out.println("List all the books"));
         menu.addOption("Quit", () -> System.out.println("Now we quit"));
-        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
-        System.setIn(in);
 
         menu.processInput();
 

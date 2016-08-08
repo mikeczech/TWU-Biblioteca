@@ -15,6 +15,16 @@ public class Menu {
     private Map<Character, Action> actions = new HashMap<>();
     private char nextOptionKey = 'a';
 
+    private Scanner scanner;
+
+    public Menu(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    protected Menu() {
+        this.scanner = null;
+    }
+
     protected void addOption(String option) {
         options.put(nextOptionKey, option);
         nextOptionKey++;
@@ -26,8 +36,7 @@ public class Menu {
     }
 
     public void processInput() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        if(!scanner.hasNext())
+        if(!scanner.hasNextLine())
             throw new IOException("Empty input.");
         String input = scanner.nextLine();
         if(input.length() != 1)

@@ -7,6 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.Year;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
@@ -34,9 +36,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void whenSelectingAnInvalidOptionAMessageIsShown() {
-        BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("e".getBytes());
-        System.setIn(in);
+        BibliotecaApp app = new BibliotecaApp(new Scanner("e\n"));
 
         app.start(1);
 
@@ -46,9 +46,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void afterSelectingAnInvalidOptionWeCanChooseAnotherOne() {
-        BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("e\ne".getBytes());
-        System.setIn(in);
+        BibliotecaApp app = new BibliotecaApp(new Scanner("e\ne\n"));
 
         app.start(2);
 
@@ -60,11 +58,10 @@ public class BibliotecaAppTest {
     @Test
     public void whenSelectingListBooksAListOfBooksIsShown() {
         BibliotecaApp app = new BibliotecaApp(
+                new Scanner("a\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
                 new Book("Animal Farm", "George Orwell", Year.of(1945))
         );
-        ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
-        System.setIn(in);
 
         app.start(1);
 
@@ -75,24 +72,35 @@ public class BibliotecaAppTest {
 
     @Test
     public void whenSelectingQuitNoFurtherOutputIsShown() {
-        BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("d".getBytes());
-        System.setIn(in);
+        BibliotecaApp app = new BibliotecaApp(new Scanner("d\n"));
 
         app.start(1);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n", outContent.toString());
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void whenSelectingCheckoutBookTheUserIsAskedtoProvideABookID() {
-        BibliotecaApp app = new BibliotecaApp();
-        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
-        System.setIn(in);
+        BibliotecaApp app = new BibliotecaApp(new Scanner("b\n"));
 
         app.start(1);
 
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: ", outContent.toString());
+    }
+
+    @Test
+    public void whenSelectingCheckoutBookAndProvidingABookIDTheSelectedBookShouldAppearAsCheckedOut() {
+        BibliotecaApp app = new BibliotecaApp(
+                new Scanner("b\n1\na\n"),
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945))
+        );
+
+        app.start(1);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: " + "\n" +
+                "(1) Brave New World, Aldous Huxley, 1932 [NOT AVAILABLE]\n" +
+                "(2) Animal Farm, George Orwell, 1945 [AVAILABLE]\n", outContent.toString());
     }
 
 }

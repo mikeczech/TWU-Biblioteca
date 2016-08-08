@@ -8,27 +8,37 @@ public class BibliotecaApp {
 
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca!";
 
-    private Menu menu = new Menu();
+    private Menu menu;
 
     private Library lib;
 
     private boolean stop = false;
 
-    public BibliotecaApp() {
+    private Scanner scanner;
+
+    protected BibliotecaApp(Scanner scanner) {
+        this.scanner = scanner;
         buildMenu();
     }
 
     private void buildMenu() {
+        menu = new Menu(scanner);
         menu.addOption("List Books", () -> lib.listBooks());
         menu.addOption("Check-out Book", () -> {
             System.out.print("Book ID: ");
+            scanner.nextLine();
+            lib.checkoutBookWithId(0);
         });
         menu.addOption("Return Book", () -> System.out.print("return"));
         menu.addOption("Quit", () -> stop = true);
     }
 
-    public BibliotecaApp(Book ...books) {
-        this();
+    public BibliotecaApp() {
+        this(new Scanner(""));
+    }
+
+    public BibliotecaApp(Scanner scanner, Book ...books) {
+        this(scanner);
         this.lib = new Library(books);
     }
 
