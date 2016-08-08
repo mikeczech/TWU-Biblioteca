@@ -93,7 +93,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void whenSelectingCheckoutBookAndProvidingABookIDTheSelectedBookShouldAppearAsCheckedOut() {
+    public void whenProvidingTheFirstBookIDTheSelectedBookShouldAppearAsCheckedOut() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n1\na\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
@@ -105,7 +105,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void whenSelectingCheckoutBookAndProvidingTheSecondBookIDTheSecondBookShouldAppearAsCheckedOut() {
+    public void whenProvidingTheSecondBookIDTheSecondBookShouldAppearAsCheckedOut() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n2\na\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
@@ -119,7 +119,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void whenSelectingCheckoutBookAndTheBookIsNotAvailableAMessageAppears() {
+    public void whenProvidingTheIDOfAnAlreadyCheckedOutBookAMessageAppears() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n1\nb\n1\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
@@ -132,7 +132,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void whenSelectingCheckoutBookAndProvidingNoBookIdAMessageAppears() {
+    public void whenProvidingNoBookIdAMessageAppears() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
@@ -145,7 +145,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void whenSelectingCheckoutBookAndProvidingAnInvalidBookIdAMessageAppears() {
+    public void whenProvidingAnInvalidBookIdAMessageAppears() {
         BibliotecaApp app = new BibliotecaApp(
                 new Scanner("b\nFOO\n"),
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932))
