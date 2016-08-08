@@ -6,13 +6,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-/**
- * Created by mczech on 05/08/16.
- */
+
 public class Library {
 
     private List<Book> books = new ArrayList<>();
-
     private Set<Book> checkedOut = new HashSet<>();
 
     public Library(Book ...books) {
@@ -22,28 +19,40 @@ public class Library {
 
     public void checkoutBookWithId(int bookId) {
         Book book = tryToGetBookById(bookId);
-        if(checkedOut.contains(book))
+        if(isCheckedOut(book))
             throw new IllegalStateException("The book with the given ID is not available anymore.");
-        checkedOut.add(book);
+        checkOutBook(book);
     }
 
     private Book tryToGetBookById(int bookId) {
         try {
             return books.get(bookId);
         } catch(IndexOutOfBoundsException ex) {
-            throw new IllegalArgumentException(ex.getMessage());
+            throw new IllegalArgumentException("Unknown book ID");
         }
+    }
+
+    private boolean isCheckedOut(Book book) {
+        return checkedOut.contains(book);
+    }
+
+    private void checkOutBook(Book book) {
+        checkedOut.add(book);
     }
 
     public boolean isCheckedOut(int bookId) {
         Book book = tryToGetBookById(bookId);
-        return checkedOut.contains(book);
+        return isCheckedOut(book);
     }
 
     public void returnBookWithGivenId(int bookId) {
         Book book = tryToGetBookById(bookId);
-        if(!checkedOut.contains(book))
+        if(!isCheckedOut(book))
             throw new IllegalStateException("The book with the given ID is not checked out.");
+        returnBook(book);
+    }
+
+    private void returnBook(Book book) {
         checkedOut.remove(book);
     }
 
