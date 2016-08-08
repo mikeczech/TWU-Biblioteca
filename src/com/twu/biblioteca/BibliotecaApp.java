@@ -28,9 +28,9 @@ public class BibliotecaApp {
         menu.addOption("List Books", () -> lib.listBooks());
         menu.addOption("Check-out Book", () -> tryToCheckoutBook());
         menu.addOption("Return Book", () -> {
-            requestBookId();
+            int input = requestBookId();
             System.out.println("Thank you for returning the book.");
-            lib.returnBookWithGivenId(0);
+            lib.returnBookWithGivenId(input - 1);
         });
         menu.addOption("Quit", () -> stop = true);
     }
