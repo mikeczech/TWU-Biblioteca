@@ -84,4 +84,15 @@ public class BibliotecaAppTest {
         assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n", outContent.toString());
     }
 
+    @Test
+    public void whenSelectingCheckoutBookTheUserIsAskedtoProvideABookID() {
+        BibliotecaApp app = new BibliotecaApp();
+        ByteArrayInputStream in = new ByteArrayInputStream("b".getBytes());
+        System.setIn(in);
+
+        app.start(1);
+
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n" + "Book ID: ", outContent.toString());
+    }
+
 }
