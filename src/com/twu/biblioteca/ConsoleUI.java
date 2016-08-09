@@ -29,10 +29,10 @@ class ConsoleUI {
     }
 
     private void buildMenu() {
-        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, this::listBooks)
+        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, () -> listItemsFromLibrary(bookLibrary))
         .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, this::tryToCheckoutBook)
         .addOptionWithLabelAndAction(Message.RETURN_BOOK, this::tryToReturnBook)
-        .addOptionWithLabelAndAction("List Movies", this::listMovies)
+        .addOptionWithLabelAndAction("List Movies", () -> listItemsFromLibrary(movieLibrary))
         .addOptionWithLabelAndAction("Check-out Movie", this::tryToCheckoutMovie)
         .addOptionWithLabelAndAction("Return Movie", this::tryToReturnMovie)
         .addOptionWithLabelAndAction(Message.QUIT, this::quit);
@@ -44,12 +44,8 @@ class ConsoleUI {
     private void tryToCheckoutMovie() {
     }
 
-    private void listMovies() {
-        System.out.print(movieLibrary.toString());
-    }
-
-    private void listBooks() {
-        System.out.print(bookLibrary.toString());
+    private void listItemsFromLibrary(Library library) {
+        System.out.print(library.toString());
     }
 
     private void tryToCheckoutBook() {
