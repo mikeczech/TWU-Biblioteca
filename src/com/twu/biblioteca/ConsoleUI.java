@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 class ConsoleUI {
 
-    private final Library library;
+    private final Library<Book> bookLibrary;
+    private final Library<Movie> movieLibrary;
 
     private final Menu menu;
 
@@ -15,15 +16,16 @@ class ConsoleUI {
 
     private boolean stopInputLoop = false;
 
-    ConsoleUI(InputStream input, Library library) {
-        this.library = library;
+    ConsoleUI(InputStream input, Library<Book> bookLibrary, Library<Movie> movieLibrary) {
+        this.bookLibrary = bookLibrary;
+        this.movieLibrary = movieLibrary;
         this.scanner = new Scanner(input);
         this.menu = new Menu();
         buildMenu();
     }
 
-    public ConsoleUI(Library library) {
-        this(System.in, library);
+    public ConsoleUI(Library<Book> bookLibrary, Library<Movie> movieLibrary) {
+        this(System.in, bookLibrary, movieLibrary);
     }
 
     private void buildMenu() {
@@ -43,16 +45,17 @@ class ConsoleUI {
     }
 
     private void listMovies() {
+        System.out.print(movieLibrary.toString());
     }
 
     private void listBooks() {
-        System.out.print(library.toString());
+        System.out.print(bookLibrary.toString());
     }
 
     private void tryToCheckoutBook() {
         try {
             int input = readBookId();
-            library.checkoutItemWithId(input - 1);
+            bookLibrary.checkoutItemWithId(input - 1);
             showSuccessfulCheckoutMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
             showUnsuccessfulCheckoutMessage();
@@ -71,7 +74,7 @@ class ConsoleUI {
     private void tryToReturnBook() {
         try {
             int input = readBookId();
-            library.returnItemWithId(input - 1);
+            bookLibrary.returnItemWithId(input - 1);
             showSuccessfulReturnMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
             showUnsuccessfulReturnMessage();

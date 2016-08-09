@@ -22,6 +22,7 @@ public class ConsoleUITest {
     private static final String BOOK1_ENTRY = "(1) Brave New World, Aldous Huxley, 1932\n";
     private static final String BOOK2_ENTRY = "(2) Animal Farm, George Orwell, 1945\n";
     private static final String COMPLETE_BOOKLIST = BOOK1_ENTRY + BOOK2_ENTRY;
+    private static final String COMPLETE_MOVIELIST = "(1) E.T. the Extra-Terrestrial, Steven Spielberg, 1982, UNRATED\n(2) The Terminator, James Cameron, 1984, 9\n";
     private static final String SELECT_BOOKID_MSG = "Please select a book ID: ";
     private static final String THANK_YOU_MSG = "Thank you! Enjoy the book\n";
     private static final String NO_VALID_BOOK_TO_RETURN_MSG = "That is not a valid book to return.\n";
@@ -35,11 +36,15 @@ public class ConsoleUITest {
     }
 
     private ConsoleUI createUIWithInput(String input) {
-        Library library = new Library(
+        Library bookLibrary = new Library(
             new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
             new Book("Animal Farm", "George Orwell", Year.of(1945))
         );
-        return new ConsoleUI(new ByteArrayInputStream((input + "g\n").getBytes()), library);
+        Library movieLibrary = new Library(
+            new Movie("E.T. the Extra-Terrestrial", "Steven Spielberg", Year.of(1982), Rating.UNRATED),
+            new Movie("The Terminator", "James Cameron", Year.of(1984), Rating.of(9))
+        );
+        return new ConsoleUI(new ByteArrayInputStream((input + "g\n").getBytes()), bookLibrary, movieLibrary);
     }
 
     @Test
@@ -72,6 +77,13 @@ public class ConsoleUITest {
         ConsoleUI ui = createUIWithInput("a\n");
         ui.show();
         assertOutputIs(COMPLETE_BOOKLIST);
+    }
+
+    @Test
+    public void whenSelectingListMoviesAListOfMoviesIsShown() {
+        ConsoleUI ui = createUIWithInput("d\n");
+        ui.show();
+        assertOutputIs(COMPLETE_MOVIELIST);
     }
 
     @Test

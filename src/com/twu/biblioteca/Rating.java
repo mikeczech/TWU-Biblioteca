@@ -11,10 +11,14 @@ public class Rating {
 
     private Rating() {}
 
-    public Rating(int value) {
+    private Rating(int value) {
         if(value > MAX || value < MIN)
             throw new IllegalArgumentException("Given value is outside range");
         this.value = value;
+    }
+
+    public static Rating of(int value){
+        return new Rating(value);
     }
 
     @Override
