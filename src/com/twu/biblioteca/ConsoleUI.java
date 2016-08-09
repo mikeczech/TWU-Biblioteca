@@ -30,28 +30,22 @@ class ConsoleUI {
 
     private void buildMenu() {
         menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, () -> listItemsFromLibrary(bookLibrary))
-        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, this::tryToCheckoutBook)
-        .addOptionWithLabelAndAction(Message.RETURN_BOOK, this::tryToReturnBook)
+        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(bookLibrary))
+        .addOptionWithLabelAndAction(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(bookLibrary))
         .addOptionWithLabelAndAction("List Movies", () -> listItemsFromLibrary(movieLibrary))
-        .addOptionWithLabelAndAction("Check-out Movie", this::tryToCheckoutMovie)
-        .addOptionWithLabelAndAction("Return Movie", this::tryToReturnMovie)
+        .addOptionWithLabelAndAction("Check-out Movie", () -> tryToCheckoutItemFromLibrary(movieLibrary))
+        .addOptionWithLabelAndAction("Return Movie", () -> tryToReturnItemFromLibrary(movieLibrary))
         .addOptionWithLabelAndAction(Message.QUIT, this::quit);
-    }
-
-    private void tryToReturnMovie() {
-    }
-
-    private void tryToCheckoutMovie() {
     }
 
     private void listItemsFromLibrary(Library library) {
         System.out.print(library.toString());
     }
 
-    private void tryToCheckoutBook() {
+    private void tryToCheckoutItemFromLibrary(Library library) {
         try {
             int input = readBookId();
-            bookLibrary.checkoutItemWithId(input - 1);
+            library.checkoutItemWithId(input - 1);
             showSuccessfulCheckoutMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
             showUnsuccessfulCheckoutMessage();
@@ -67,10 +61,10 @@ class ConsoleUI {
         System.out.println(Message.UNSUCCESSFUL_CHECKOUT);
     }
 
-    private void tryToReturnBook() {
+    private void tryToReturnItemFromLibrary(Library library) {
         try {
             int input = readBookId();
-            bookLibrary.returnItemWithId(input - 1);
+            library.returnItemWithId(input - 1);
             showSuccessfulReturnMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
             showUnsuccessfulReturnMessage();
