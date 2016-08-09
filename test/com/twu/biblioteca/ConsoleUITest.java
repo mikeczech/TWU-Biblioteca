@@ -14,7 +14,7 @@ public class ConsoleUITest {
 
     private static final String SELECT_OPTION_MSG = "Please select an option: ";
     private static final String END_OF_OUTPUT = "\n" + SELECT_OPTION_MSG;
-    private static final String MAIN_MENU = "a) List Books\nb) Check-out Book\nc) Return Book\nd) Quit\n";
+    private static final String MAIN_MENU = "a) List Books\nb) Check-out Book\nc) Return Book\nd) List Movies\ne) Check-out Movie\nf) Return Movie\ng) Quit\n";
     private static final String WELCOME_MESSAGE = "Welcome to Biblioteca!\n\n";
     private static final String INITIAL_OUTPUT = WELCOME_MESSAGE + MAIN_MENU + "\n" + SELECT_OPTION_MSG;
     private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
@@ -39,7 +39,7 @@ public class ConsoleUITest {
             new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
             new Book("Animal Farm", "George Orwell", Year.of(1945))
         );
-        return new ConsoleUI(new ByteArrayInputStream((input + "d\n").getBytes()), library);
+        return new ConsoleUI(new ByteArrayInputStream((input + "g\n").getBytes()), library);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ConsoleUITest {
 
     @Test
     public void whenSelectingAnInvalidOptionAMessageIsShown() {
-        ConsoleUI ui = createUIWithInput("e\n");
+        ConsoleUI ui = createUIWithInput("k\n");
         ui.show();
         assertOutputIs(INVALID_OPTION_MESSAGE);
     }
@@ -62,7 +62,7 @@ public class ConsoleUITest {
 
     @Test
     public void afterSelectingAnInvalidOptionWeCanChooseAnotherOne() {
-        ConsoleUI ui = createUIWithInput("e\ne\n");
+        ConsoleUI ui = createUIWithInput("k\nk\n");
         ui.show();
         assertOutputIs(INVALID_OPTION_MESSAGE + "\n" + SELECT_OPTION_MSG + INVALID_OPTION_MESSAGE);
     }

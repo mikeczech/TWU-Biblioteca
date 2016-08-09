@@ -27,13 +27,25 @@ class ConsoleUI {
     }
 
     private void buildMenu() {
-        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, this::showLibrary)
+        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, this::listBooks)
         .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, this::tryToCheckoutBook)
         .addOptionWithLabelAndAction(Message.RETURN_BOOK, this::tryToReturnBook)
+        .addOptionWithLabelAndAction("List Movies", this::listMovies)
+        .addOptionWithLabelAndAction("Check-out Movie", this::tryToCheckoutMovie)
+        .addOptionWithLabelAndAction("Return Movie", this::tryToReturnMovie)
         .addOptionWithLabelAndAction(Message.QUIT, this::quit);
     }
 
-    private void showLibrary() {
+    private void tryToReturnMovie() {
+    }
+
+    private void tryToCheckoutMovie() {
+    }
+
+    private void listMovies() {
+    }
+
+    private void listBooks() {
         System.out.print(library.toString());
     }
 
