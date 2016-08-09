@@ -38,4 +38,5 @@ public abstract class LibraryItem {
         result = 31 * result + publicationYear.hashCode();
         return result;
     }
+
 }

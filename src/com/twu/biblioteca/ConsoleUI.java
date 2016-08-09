@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 class ConsoleUI {
 
-    private final Library<Book> bookLibrary;
-    private final Library<Movie> movieLibrary;
+    private final LibraryUiWrapper books;
+    private final LibraryUiWrapper movies;
 
     private final Menu menu;
 
@@ -16,79 +16,101 @@ class ConsoleUI {
 
     private boolean stopInputLoop = false;
 
-    ConsoleUI(InputStream input, Library<Book> bookLibrary, Library<Movie> movieLibrary) {
-        this.bookLibrary = bookLibrary;
-        this.movieLibrary = movieLibrary;
+
+    private class LibraryUiWrapper {
+        private Library library;
+        private String itemKind;
+
+        public LibraryUiWrapper(Library library, String itemKind) {
+            this.library = library;
+            this.itemKind = itemKind;
+        }
+
+        public Library getLibrary() {
+            return library;
+        }
+
+        public String getItemKind() {
+            return itemKind;
+        }
+    }
+
+
+    ConsoleUI(InputStream input, Library<Book> books, Library<Movie> movies) {
+        this.books = new LibraryUiWrapper(books, "book");
+        this.movies = new LibraryUiWrapper(movies, "movie");
         this.scanner = new Scanner(input);
         this.menu = new Menu();
         buildMenu();
     }
 
-    public ConsoleUI(Library<Book> bookLibrary, Library<Movie> movieLibrary) {
-        this(System.in, bookLibrary, movieLibrary);
+    public ConsoleUI(Library<Book> books, Library<Movie> movies) {
+        this(System.in, books, movies);
     }
 
     private void buildMenu() {
-        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, () -> listItemsFromLibrary(bookLibrary))
-        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(bookLibrary))
-        .addOptionWithLabelAndAction(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(bookLibrary))
-        .addOptionWithLabelAndAction("List Movies", () -> listItemsFromLibrary(movieLibrary))
-        .addOptionWithLabelAndAction("Check-out Movie", () -> tryToCheckoutItemFromLibrary(movieLibrary))
-        .addOptionWithLabelAndAction("Return Movie", () -> tryToReturnItemFromLibrary(movieLibrary))
+        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, () -> listItemsFromLibrary(books))
+        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
+        .addOptionWithLabelAndAction(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
+        .addOptionWithLabelAndAction(Message.LIST_MOVIES, () -> listItemsFromLibrary(movies))
+        .addOptionWithLabelAndAction(Message.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
+        .addOptionWithLabelAndAction(Message.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
         .addOptionWithLabelAndAction(Message.QUIT, this::quit);
     }
 
-    private void listItemsFromLibrary(Library library) {
-        System.out.print(library.toString());
+    private void listItemsFromLibrary(LibraryUiWrapper uiLibrary) {
+        System.out.print(uiLibrary.getLibrary().toString());
     }
 
-    private void tryToCheckoutItemFromLibrary(Library library) {
+    private void tryToCheckoutItemFromLibrary(LibraryUiWrapper uiLibrary) {
+        String itemKind = uiLibrary.getItemKind();
         try {
-            int input = readBookId();
-            library.checkoutItemWithId(input - 1);
-            showSuccessfulCheckoutMessage();
+            int input = readIdOfItemOfKind(itemKind);
+            uiLibrary.getLibrary().checkoutItemWithId(input - 1);
+            reportSuccessfulCheckoutOfItemOfKind(itemKind);
         } catch(IllegalStateException | IllegalArgumentException ex) {
-            showUnsuccessfulCheckoutMessage();
+            reportUnsuccessfulCheckoutOfItemOfKind(itemKind);
         }
     }
 
-    private void showSuccessfulCheckoutMessage() {
-        System.out.println(Message.SUCCESSFUL_CHECKOUT);
+    private void reportSuccessfulCheckoutOfItemOfKind(String itemKind) {
+        System.out.println(Message.SUCCESSFUL_CHECKOUT.apply(itemKind));
     }
 
-    private void showUnsuccessfulCheckoutMessage() {
+    private void reportUnsuccessfulCheckoutOfItemOfKind(String itemKind) {
         System.out.println();
-        System.out.println(Message.UNSUCCESSFUL_CHECKOUT);
+        System.out.println(Message.UNSUCCESSFUL_CHECKOUT.apply(itemKind));
     }
 
-    private void tryToReturnItemFromLibrary(Library library) {
+    private void tryToReturnItemFromLibrary(LibraryUiWrapper uiLibrary) {
+        String itemKind = uiLibrary.getItemKind();
         try {
-            int input = readBookId();
-            library.returnItemWithId(input - 1);
-            showSuccessfulReturnMessage();
+            int input = readIdOfItemOfKind(itemKind);
+            uiLibrary.getLibrary().returnItemWithId(input - 1);
+            reportSuccessfulReturnOfItemOfKind(itemKind);
         } catch(IllegalStateException | IllegalArgumentException ex) {
-            showUnsuccessfulReturnMessage();
+            reportUnsuccessfulReturnOfItemOfKind(itemKind);
         }
     }
 
-    private void showSuccessfulReturnMessage() {
-        System.out.println(Message.SUCCESSFUL_RETURN);
+    private void reportSuccessfulReturnOfItemOfKind(String itemKind) {
+        System.out.println(Message.SUCCESSFUL_RETURN.apply(itemKind));
     }
 
-    private void showUnsuccessfulReturnMessage() {
+    private void reportUnsuccessfulReturnOfItemOfKind(String itemKind) {
         System.out.println();
-        System.out.println(Message.UNSUCCESSFUL_RETURN);
+        System.out.println(Message.UNSUCCESSFUL_RETURN.apply(itemKind));
     }
 
-    private int readBookId() {
-        showPleaseSelectBookIdMessage();
+    private int readIdOfItemOfKind(String itemKind) {
+        demandIdOfItemOfKind(itemKind);
         if(!scanner.hasNextLine())
             throw new IllegalStateException("No input was given.");
         return Integer.parseInt(scanner.nextLine());
     }
 
-    private void showPleaseSelectBookIdMessage() {
-        System.out.print(Message.SELECT_BOOKID);
+    private void demandIdOfItemOfKind(String itemKind) {
+        System.out.print(Message.SELECT_ITEMID.apply(itemKind));
     }
 
     public void show() {

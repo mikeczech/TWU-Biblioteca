@@ -1,20 +1,25 @@
 package com.twu.biblioteca;
 
+import java.util.function.Function;
+
 class Message {
 
     private Message() {}
 
-    public static final String WELCOME = "Welcome to Biblioteca!";
-    public static final String INVALID_OPTION = "Select a valid option!";
-    public static final String SUCCESSFUL_RETURN = "Thank you for returning the book.";
-    public static final String UNSUCCESSFUL_RETURN = "That is not a valid book to return.";
-    public static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the book";
-    public static final String UNSUCCESSFUL_CHECKOUT = "That book is not available.";
-    public static final String SELECT_BOOKID = "Please select a book ID: ";
+    static final String WELCOME = "Welcome to Biblioteca!";
+    static final String INVALID_OPTION = "Select a valid option!";
+    static final Function<String, String> SUCCESSFUL_RETURN = s -> "Thank you for returning the " + s + ".";
+    static final Function<String, String> UNSUCCESSFUL_RETURN = s -> "That is not a valid " + s + " to return.";
+    static final Function<String, String> SUCCESSFUL_CHECKOUT = s -> "Thank you! Enjoy the " + s;
+    static final Function<String, String> UNSUCCESSFUL_CHECKOUT = s -> "That " + s + " is not available.";
+    static final Function<String, String> SELECT_ITEMID = s -> "Please select a " + s + " ID: ";
 
-    public static final String LIST_BOOKS = "List Books";
-    public static final String CHECK_OUT_BOOK = "Check-out Book";
-    public static final String RETURN_BOOK = "Return Book";
-    public static final String QUIT = "Quit";
+    static final String LIST_BOOKS = "List Books";
+    static final String CHECK_OUT_BOOK = "Check-out Book";
+    static final String RETURN_BOOK = "Return Book";
+    static final String QUIT = "Quit";
+    static final String LIST_MOVIES = "List Movies";
+    static final String CHECK_OUT_MOVIE = "Check-out Movie";
+    static final String RETURN_MOVIE = "Return Movie";
 
 }

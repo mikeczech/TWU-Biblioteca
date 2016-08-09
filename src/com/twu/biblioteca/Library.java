@@ -53,6 +53,26 @@ class Library<T extends LibraryItem> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Library<?> library = (Library<?>) o;
+
+        if (!items.equals(library.items)) return false;
+        return checkedOut.equals(library.checkedOut);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = items.hashCode();
+        result = 31 * result + checkedOut.hashCode();
+        return result;
+    }
+
+    @Override
+
     public String toString() {
         StringBuilder libStrBuilder = new StringBuilder();
         IntStream.range(0, items.size()).forEach(i -> {
