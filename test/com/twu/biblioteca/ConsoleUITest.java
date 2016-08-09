@@ -36,11 +36,11 @@ public class ConsoleUITest {
     }
 
     private ConsoleUI createUIWithInput(String input) {
-        Library bookLibrary = new Library(
+        Library bookLibrary = new Library<>(
             new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
             new Book("Animal Farm", "George Orwell", Year.of(1945))
         );
-        Library movieLibrary = new Library(
+        Library movieLibrary = new Library<>(
             new Movie("E.T. the Extra-Terrestrial", "Steven Spielberg", Year.of(1982), Rating.UNRATED),
             new Movie("The Terminator", "James Cameron", Year.of(1984), Rating.of(9))
         );
