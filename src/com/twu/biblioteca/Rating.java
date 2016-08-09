@@ -5,7 +5,7 @@ public class Rating {
     public static final Rating UNRATED = new Rating();
 
     private static final int MAX = 10;
-    private static final int MIN = 0;
+    private static final int MIN = 1;
 
     private int value;
 
