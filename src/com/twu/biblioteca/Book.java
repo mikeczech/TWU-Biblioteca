@@ -2,40 +2,10 @@ package com.twu.biblioteca;
 
 import java.time.Year;
 
-class Book {
-
-    private final String title;
-    private final String author;
-    private final Year publicationYear;
+class Book extends LibraryItem {
 
     public Book(String title, String author, Year publicationYear) {
-        this.title = title;
-        this.author = author;
-        this.publicationYear = publicationYear;
+        super(title, author, publicationYear);
     }
 
-    public String toString() {
-        return String.join(", ", title, author, publicationYear.toString());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Book book = (Book) o;
-
-        if (!title.equals(book.title)) return false;
-        if (!author.equals(book.author)) return false;
-        return publicationYear.equals(book.publicationYear);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = title.hashCode();
-        result = 31 * result + author.hashCode();
-        result = 31 * result + publicationYear.hashCode();
-        return result;
-    }
 }
