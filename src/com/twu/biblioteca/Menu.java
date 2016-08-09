@@ -3,53 +3,35 @@ package com.twu.biblioteca;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.function.Consumer;
 
-/**
- * Created by mczech on 05/08/16.
- */
 public class Menu {
 
-    private Map<Character, String> options = new HashMap<>();
-    private Map<Character, Action> actions = new HashMap<>();
+    private Map<Character, String> optionIdToLabel = new HashMap<>();
+    private Map<Character, Action> optionIdToAction = new HashMap<>();
     private char nextOptionKey = 'a';
 
-    private Scanner scanner;
-
-    public Menu(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
-    protected Menu() {
-        this.scanner = null;
-    }
-
-    protected void addOption(String option) {
-        options.put(nextOptionKey, option);
+    protected void addOptionWithLabel(String option) {
+        optionIdToLabel.put(nextOptionKey, option);
         nextOptionKey++;
     }
 
-    public void show() {
-        for(Character optionKey : options.keySet())
-            System.out.println(optionKey + ") " + options.get(optionKey));
-    }
-
-    public void processInput() throws IOException {
-        if(!scanner.hasNextLine())
-            throw new IOException("Empty input.");
-        String input = scanner.nextLine();
-        if(input.length() != 1)
-            throw new IOException("Input must consist of exactly one character.");
-        char optionKey = input.charAt(0);
-        if(!options.containsKey(optionKey))
+    public void applyOptionWithId(char optionId) throws IOException {
+        if(!optionIdToLabel.containsKey(optionId))
             throw new IOException("Unknown option key.");
-        actions.get(optionKey).apply();
+        optionIdToAction.get(optionId).apply();
     }
 
-    public void addOption(String option, Action action) {
-        actions.put(nextOptionKey, action);
-        addOption(option);
+    public Menu addOptionWithLabelAndAction(String optionLabel, Action action) {
+        optionIdToAction.put(nextOptionKey, action);
+        addOptionWithLabel(optionLabel);
+        return this;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for(Character optionId : optionIdToLabel.keySet())
+            builder.append(optionId + ") " + optionIdToLabel.get(optionId) + "\n");
+        return builder.toString();
+    }
 }
