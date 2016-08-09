@@ -10,7 +10,7 @@ public class Message {
     public static final String UNSUCCESSFUL_RETURN = "That is not a valid book to return.";
     public static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the book";
     public static final String UNSUCCESSFUL_CHECKOUT = "That book is not available.";
-    public static final String SELECT_BOOKID = "Book ID: ";
+    public static final String SELECT_BOOKID = "Please select a book ID: ";
 
     public static final String LIST_BOOKS = "List Books";
     public static final String CHECK_OUT_BOOK = "Check-out Book";

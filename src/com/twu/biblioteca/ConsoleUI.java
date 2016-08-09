@@ -3,6 +3,8 @@ package com.twu.biblioteca;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+
+
 public class ConsoleUI {
 
     private Library library;
@@ -116,12 +118,17 @@ public class ConsoleUI {
     }
 
     private char readMenuOption() throws IOException {
+        showPleaseSelectOptionMessage();
         if(!scanner.hasNextLine())
             throw new IOException("Empty input.");
         String input = scanner.nextLine();
         if(input.length() != 1)
             throw new IOException("Input must consist of exactly one character.");
         return input.charAt(0);
+    }
+
+    private void showPleaseSelectOptionMessage() {
+        System.out.print("Please select an option: ");
     }
 
     private void applyMenuOption(char optionId) throws IOException {

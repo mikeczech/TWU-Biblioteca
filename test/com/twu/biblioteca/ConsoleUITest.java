@@ -12,15 +12,17 @@ import static org.junit.Assert.*;
 
 public class ConsoleUITest {
 
+    private static final String SELECT_OPTION_MSG = "Please select an option: ";
+    private static final String END_OF_OUTPUT = "\n" + SELECT_OPTION_MSG;
     private static final String MAIN_MENU = "a) List Books\nb) Check-out Book\nc) Return Book\nd) Quit\n";
     private static final String WELCOME_MESSAGE = "Welcome to Biblioteca!\n\n";
-    private static final String INITIAL_OUTPUT = WELCOME_MESSAGE + MAIN_MENU + "\n";
+    private static final String INITIAL_OUTPUT = WELCOME_MESSAGE + MAIN_MENU + "\n" + SELECT_OPTION_MSG;
     private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
     private static final String INVALID_BOOK_MESSAGE = "That book is not available.\n";
     private static final String BOOK1_ENTRY = "(1) Brave New World, Aldous Huxley, 1932\n";
     private static final String BOOK2_ENTRY = "(2) Animal Farm, George Orwell, 1945\n";
     private static final String COMPLETE_BOOKLIST = BOOK1_ENTRY + BOOK2_ENTRY;
-    private static final String SELECT_BOOKID_MSG = "Book ID: ";
+    private static final String SELECT_BOOKID_MSG = "Please select a book ID: ";
     private static final String THANK_YOU_MSG = "Thank you! Enjoy the book\n";
     private static final String NO_VALID_BOOK_TO_RETURN_MSG = "That is not a valid book to return.\n";
     private static final String VALID_RETURN_MSG = "Thank you for returning the book.\n";
@@ -44,86 +46,89 @@ public class ConsoleUITest {
     public void afterShowingTheWelcomeMessageTheMenuShouldAppear() {
         ConsoleUI ui = createUIWithInput("");
         ui.show();
-        assertEquals(WELCOME_MESSAGE + MAIN_MENU + "\n", outContent.toString());
+        assertEquals(WELCOME_MESSAGE + MAIN_MENU + END_OF_OUTPUT, outContent.toString());
     }
 
     @Test
     public void whenSelectingAnInvalidOptionAMessageIsShown() {
         ConsoleUI ui = createUIWithInput("e\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + INVALID_OPTION_MESSAGE + "\n", outContent.toString());
+        assertOutputIs(INVALID_OPTION_MESSAGE);
+    }
+
+    private void assertOutputIs(String expected) {
+        assertEquals(INITIAL_OUTPUT + expected + END_OF_OUTPUT, outContent.toString());
     }
 
     @Test
     public void afterSelectingAnInvalidOptionWeCanChooseAnotherOne() {
         ConsoleUI ui = createUIWithInput("e\ne\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT +
-                INVALID_OPTION_MESSAGE + "\n" +
-                INVALID_OPTION_MESSAGE + "\n", outContent.toString());
+        assertOutputIs(INVALID_OPTION_MESSAGE + "\n" + SELECT_OPTION_MSG + INVALID_OPTION_MESSAGE);
     }
 
     @Test
     public void whenSelectingListBooksAListOfBooksIsShown() {
         ConsoleUI ui = createUIWithInput("a\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + COMPLETE_BOOKLIST + "\n", outContent.toString());
+        assertOutputIs(COMPLETE_BOOKLIST);
     }
 
     @Test
-    public void whenSelectingCheckoutBookTheUserIsAskedtoProvideABookID() {
+    public void checkingOutAnAvailableBookShouldResultInASuccessMessage() {
         ConsoleUI ui = createUIWithInput("b\n1\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG + THANK_YOU_MSG);
     }
 
     @Test
-    public void whenCheckingOutTheSecondBookItShouldNotAppearInTheBooklist() {
+    public void whenTheSecondBookIsCheckedOutItShouldNotAppearInTheBooklist() {
         ConsoleUI ui = createUIWithInput("b\n2\na\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n" +
-                BOOK1_ENTRY + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG +
+                        THANK_YOU_MSG + "\n" +
+                        SELECT_OPTION_MSG +
+                        BOOK1_ENTRY);
     }
 
     @Test
     public void whenCheckingOutAnAlreadyCheckedOutBookAMessageAppears() {
         ConsoleUI ui = createUIWithInput("b\n1\nb\n1\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n"
-                + SELECT_BOOKID_MSG + "\n" + INVALID_BOOK_MESSAGE + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n" +
+                                SELECT_OPTION_MSG + SELECT_BOOKID_MSG + "\n" +
+                                INVALID_BOOK_MESSAGE);
     }
 
     @Test
     public void whenProvidingAnInvalidBookIdAMessageAppears() {
         ConsoleUI ui = createUIWithInput("b\nFOO\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + "\n" +
-                INVALID_BOOK_MESSAGE + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG + "\n" + INVALID_BOOK_MESSAGE);
     }
 
     @Test
     public void whenSelectingAnInvalidBookToReturnAMessageShouldAppear() {
         ConsoleUI ui = createUIWithInput("c\n1\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + "\n" +
-                NO_VALID_BOOK_TO_RETURN_MSG + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG + "\n" + NO_VALID_BOOK_TO_RETURN_MSG);
     }
 
     @Test
-    public void whenTheFirstBookIsReturnedTheBookShouldAppearAgainInTheList() {
+    public void whenTheFirstBookIsReturnedTheBookShouldAppearInTheListAgain() {
         ConsoleUI ui = createUIWithInput("b\n1\nc\n1\na\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n" +
-                SELECT_BOOKID_MSG + VALID_RETURN_MSG + "\n" +
-                COMPLETE_BOOKLIST + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n" +
+                SELECT_OPTION_MSG + SELECT_BOOKID_MSG + VALID_RETURN_MSG + "\n" +
+                SELECT_OPTION_MSG + COMPLETE_BOOKLIST);
     }
 
     @Test
-    public void whenTheSecondBookIsReturnedTheBookShouldAppearAgainInTheList() {
+    public void whenTheSecondBookIsReturnedTheBookShouldAppearInTheListAgain() {
         ConsoleUI ui = createUIWithInput("b\n2\nc\n2\na\n");
         ui.show();
-        assertEquals(INITIAL_OUTPUT + SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n" +
-                SELECT_BOOKID_MSG + VALID_RETURN_MSG + "\n" +
-                COMPLETE_BOOKLIST + "\n", outContent.toString());
+        assertOutputIs(SELECT_BOOKID_MSG + THANK_YOU_MSG + "\n" +
+                SELECT_OPTION_MSG + SELECT_BOOKID_MSG + VALID_RETURN_MSG + "\n" +
+                SELECT_OPTION_MSG + COMPLETE_BOOKLIST);
     }
 }
