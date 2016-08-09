@@ -25,13 +25,13 @@ public class LibraryTest {
 
     @Test
     public void checkedOutBooksShouldBeMarkedAsCheckedOut() {
-        libraryWithOneBook.checkoutBookWithId(0);
+        libraryWithOneBook.checkoutItemWithId(0);
         assertTrue(libraryWithOneBook.isCheckedOut(0));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void checkingOutAnUnknownBookShouldFail() {
-        emptyLibrary.checkoutBookWithId(0);
+        emptyLibrary.checkoutItemWithId(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -41,27 +41,27 @@ public class LibraryTest {
 
     @Test(expected = IllegalStateException.class)
     public void checkingOutACheckedOutBookShouldFail() {
-        libraryWithOneBook.checkoutBookWithId(0);
-        libraryWithOneBook.checkoutBookWithId(0);
+        libraryWithOneBook.checkoutItemWithId(0);
+        libraryWithOneBook.checkoutItemWithId(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void returningAnUnknownBookShouldFail() {
-        emptyLibrary.returnBookWithGivenId(0);
+        emptyLibrary.returnItemWithId(0);
     }
 
     @Test
     public void returningACheckedOutBookShouldSucceed() {
-        libraryWithOneBook.checkoutBookWithId(0);
+        libraryWithOneBook.checkoutItemWithId(0);
 
-        libraryWithOneBook.returnBookWithGivenId(0);
+        libraryWithOneBook.returnItemWithId(0);
 
         assertFalse(libraryWithOneBook.isCheckedOut(0));
     }
 
     @Test(expected = IllegalStateException.class)
     public void returningANonCheckedOutBookShouldFail() {
-        libraryWithOneBook.returnBookWithGivenId(0);
+        libraryWithOneBook.returnItemWithId(0);
     }
 
 }

@@ -40,7 +40,7 @@ class ConsoleUI {
     private void tryToCheckoutBook() {
         try {
             int input = readBookId();
-            library.checkoutBookWithId(input - 1);
+            library.checkoutItemWithId(input - 1);
             showSuccessfulCheckoutMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
             showUnsuccessfulCheckoutMessage();
@@ -59,7 +59,7 @@ class ConsoleUI {
     private void tryToReturnBook() {
         try {
             int input = readBookId();
-            library.returnBookWithGivenId(input - 1);
+            library.returnItemWithId(input - 1);
             showSuccessfulReturnMessage();
         } catch(IllegalStateException | IllegalArgumentException ex) {
             showUnsuccessfulReturnMessage();
