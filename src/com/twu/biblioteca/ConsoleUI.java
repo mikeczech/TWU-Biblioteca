@@ -5,17 +5,17 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 
-public class ConsoleUI {
+class ConsoleUI {
 
-    private Library library;
+    private final Library library;
 
-    private Menu menu;
+    private final Menu menu;
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     private boolean stopInputLoop = false;
 
-    protected ConsoleUI(InputStream input, Library library) {
+    ConsoleUI(InputStream input, Library library) {
         this.library = library;
         this.scanner = new Scanner(input);
         this.menu = new Menu();
@@ -27,10 +27,10 @@ public class ConsoleUI {
     }
 
     private void buildMenu() {
-        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, () -> showLibrary())
-        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, () -> tryToCheckoutBook())
-        .addOptionWithLabelAndAction(Message.RETURN_BOOK, () -> tryToReturnBook())
-        .addOptionWithLabelAndAction(Message.QUIT, () -> quit());
+        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, this::showLibrary)
+        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, this::tryToCheckoutBook)
+        .addOptionWithLabelAndAction(Message.RETURN_BOOK, this::tryToReturnBook)
+        .addOptionWithLabelAndAction(Message.QUIT, this::quit);
     }
 
     private void showLibrary() {
@@ -94,16 +94,16 @@ public class ConsoleUI {
         }
     }
 
-    protected void showWelcomeMessage() {
+    private void showWelcomeMessage() {
         System.out.println(Message.WELCOME);
     }
 
-    protected void showMainMenu() {
+    private void showMainMenu() {
         System.out.println();
         System.out.print(menu);
     }
 
-    protected void readAndProcessInput() {
+    private void readAndProcessInput() {
         System.out.println();
         trySelectMenuOption();
     }

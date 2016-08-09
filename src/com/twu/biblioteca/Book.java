@@ -2,11 +2,11 @@ package com.twu.biblioteca;
 
 import java.time.Year;
 
-public class Book {
+class Book {
 
-    private String title;
-    private String author;
-    private Year publicationYear;
+    private final String title;
+    private final String author;
+    private final Year publicationYear;
 
     public Book(String title, String author, Year publicationYear) {
         this.title = title;

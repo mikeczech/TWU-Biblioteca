@@ -2,15 +2,15 @@ package com.twu.biblioteca;
 
 import java.time.Year;
 
-public class BibliotecaApp {
+class BibliotecaApp {
 
-    private ConsoleUI ui;
+    private final ConsoleUI ui;
 
-    public BibliotecaApp(Library library) {
+    private BibliotecaApp(Library library) {
         ui = new ConsoleUI(library);
     }
 
-    public void start() {
+    private void start() {
         ui.show();
     }
 

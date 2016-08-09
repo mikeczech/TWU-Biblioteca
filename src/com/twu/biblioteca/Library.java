@@ -1,20 +1,16 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.IntStream;
 
 
-public class Library {
+class Library {
 
-    private List<Book> books = new ArrayList<>();
-    private Set<Book> checkedOut = new HashSet<>();
+    private final List<Book> books = new ArrayList<>();
+    private final Set<Book> checkedOut = new HashSet<>();
 
     public Library(Book ...books) {
-        for(Book b : books)
-            this.books.add(b);
+        Collections.addAll(this.books, books);
     }
 
     public void checkoutBookWithId(int bookId) {
@@ -61,7 +57,7 @@ public class Library {
         StringBuilder libStrBuilder = new StringBuilder();
         IntStream.range(0, books.size()).forEach(i -> {
             if (!isCheckedOut(i))
-                libStrBuilder.append("(" + (i + 1) + ") " + books.get(i) + "\n");
+                libStrBuilder.append("(").append(i + 1).append(") ").append(books.get(i)).append("\n");
         });
         return libStrBuilder.toString();
     }

@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Menu {
 
-    private Map<Character, String> optionIdToLabel = new HashMap<>();
-    private Map<Character, Action> optionIdToAction = new HashMap<>();
+    private final Map<Character, String> optionIdToLabel = new HashMap<>();
+    private final Map<Character, Action> optionIdToAction = new HashMap<>();
     private char nextOptionKey = 'a';
 
-    protected void addOptionWithLabel(String option) {
+    void addOptionWithLabel(String option) {
         optionIdToLabel.put(nextOptionKey, option);
         nextOptionKey++;
     }
@@ -31,7 +31,7 @@ public class Menu {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for(Character optionId : optionIdToLabel.keySet())
-            builder.append(optionId + ") " + optionIdToLabel.get(optionId) + "\n");
+            builder.append(optionId).append(") ").append(optionIdToLabel.get(optionId)).append("\n");
         return builder.toString();
     }
 }

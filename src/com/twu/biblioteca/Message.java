@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Message {
+class Message {
 
     private Message() {}
 
