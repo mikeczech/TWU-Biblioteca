@@ -51,6 +51,11 @@ class Library<T extends LibraryItem> implements ILibrary {
         returnItem(item);
     }
 
+    @Override
+    public Map<Integer, UserSession> getAccountabilities() {
+        return new HashMap<>();
+    }
+
     private void returnItem(T item) {
         checkedOut.remove(item);
     }
