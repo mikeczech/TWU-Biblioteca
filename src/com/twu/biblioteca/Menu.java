@@ -13,6 +13,7 @@ public class Menu {
     private char nextOptionId = 'a';
 
     private final Set<Character> optionIdsThatRequireAuth = new HashSet<>();
+    private final Set<Character> optionIdsThatAreHiddenWhenAuth = new HashSet<>();
 
     void addOptionWithLabel(String optionLabel) {
         optionIdToLabel.put(nextOptionId, optionLabel);
@@ -22,6 +23,8 @@ public class Menu {
     public void applyOptionWithId(char optionId) throws IOException {
         if(!optionIdToLabel.containsKey(optionId))
             throw new IOException("Unknown option key.");
+        if(optionIdsThatRequireAuth.contains(optionId) && !UserSession.isLoggedIn())
+            throw new IllegalStateException("You must be logged in to apply this option");
         optionIdToAction.get(optionId).apply();
     }
 
@@ -42,7 +45,14 @@ public class Menu {
         StringBuilder builder = new StringBuilder();
         for(Character optionId : optionIdToLabel.keySet())
             if(!optionIdsThatRequireAuth.contains(optionId) || UserSession.isLoggedIn())
-                builder.append(optionId).append(") ").append(optionIdToLabel.get(optionId)).append("\n");
+                if(!(optionIdsThatAreHiddenWhenAuth.contains(optionId) && UserSession.isLoggedIn()))
+                    builder.append(optionId).append(") ").append(optionIdToLabel.get(optionId)).append("\n");
         return builder.toString();
+    }
+
+    public Menu addOptionThatIsHiddenWhenAuthenticated(String optionLabel, Action action) {
+        optionIdsThatAreHiddenWhenAuth.add(nextOptionId);
+        addOption(optionLabel, action);
+        return this;
     }
 }

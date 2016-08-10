@@ -19,6 +19,7 @@ public class MenuTest {
     private Menu emptyMenu;
     private Menu menuWithOneOption;
     private Menu menuWithOptionThatRequiresAuthentication;
+    private Menu menuWithOptionThatIsHiddenWhenAuthenticated;
 
     @Before
     public void setUp() {
@@ -31,6 +32,10 @@ public class MenuTest {
         menuWithOptionThatRequiresAuthentication = new Menu();
         menuWithOptionThatRequiresAuthentication.addOptionWithLabel("List Books");
         menuWithOptionThatRequiresAuthentication.addOptionThatRequiresAuthentication("Quit", () -> System.out.println());
+
+        menuWithOptionThatIsHiddenWhenAuthenticated = new Menu();
+        menuWithOptionThatIsHiddenWhenAuthenticated.addOptionWithLabel("List Books");
+        menuWithOptionThatIsHiddenWhenAuthenticated.addOptionThatIsHiddenWhenAuthenticated("Quit", () -> System.out.println());
     }
 
     @After
@@ -91,6 +96,23 @@ public class MenuTest {
     @Test
     public void optionThatRequiresAuthenticationShouldBeHiddenIfTheUserIsNotLoggedIn() {
         assertEquals("a) " +  LIST_BOOKS_LABEL, menuWithOptionThatRequiresAuthentication.toString());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void aUserThatIsNotLoggedInCannotApplyAnOptionThatRequiresAuthentication() throws IOException {
+       menuWithOptionThatRequiresAuthentication.applyOptionWithId('b');
+    }
+
+    @Test
+    public void optionThatIsHiddenAfterAuthenticationShouldBeShownWhenUserIsNotLoggedIn() {
+        assertEquals("a) " +  LIST_BOOKS_LABEL +
+                "b) " + QUIT_LABEL, menuWithOptionThatIsHiddenWhenAuthenticated.toString());
+    }
+
+    @Test
+    public void optionThatIsHiddenAfterAuthenticationShouldBeHiddenWhenUserIsLoggedIn() {
+        UserSession.login("123-4567", "foobar");
+        assertEquals("a) " +  LIST_BOOKS_LABEL, menuWithOptionThatIsHiddenWhenAuthenticated.toString());
     }
 
 }
