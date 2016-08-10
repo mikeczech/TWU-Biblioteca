@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,8 +20,13 @@ public class LibraryTest {
     @Before
     public void setUp() {
         System.setOut(new PrintStream(outContent));
-        libraryWithOneBook = new Library(new Book("Animal Farm", "George Orwell", Year.of(1945)));
-        emptyLibrary = new Library();
+        libraryWithOneBook = new Library<>(new Book("Animal Farm", "George Orwell", Year.of(1945)));
+        emptyLibrary = new Library<>();
+    }
+
+    @After
+    public void setDown() {
+        UserSession.logout();
     }
 
     @Test
