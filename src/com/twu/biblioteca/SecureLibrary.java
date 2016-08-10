@@ -1,8 +1,13 @@
 package com.twu.biblioteca;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SecureLibrary<T extends LibraryItem> implements ILibrary {
 
     protected Library<T> library;
+
+    private Map<Integer, UserSession> accountabilities = new HashMap<>();
 
     public SecureLibrary(T ... items) {
         library = new Library<>(items);
@@ -13,6 +18,7 @@ public class SecureLibrary<T extends LibraryItem> implements ILibrary {
         if(!UserSession.isLoggedIn())
             throw new IllegalStateException("You must be logged in to check-out an item!");
         library.checkoutItemWithId(itemId);
+        accountabilities.put(itemId, UserSession.getSession());
     }
 
     @Override
@@ -25,6 +31,10 @@ public class SecureLibrary<T extends LibraryItem> implements ILibrary {
         if(!UserSession.isLoggedIn())
             throw new IllegalStateException("You must be logged in to return an item!");
         library.returnItemWithId(itemId);
+        accountabilities.remove(itemId);
     }
 
+    public Map<Integer, UserSession> getAccountabilities() {
+        return accountabilities;
+    }
 }

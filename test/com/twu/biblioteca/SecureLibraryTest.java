@@ -5,8 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Year;
+import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SecureLibraryTest {
 
@@ -47,6 +49,24 @@ public class SecureLibraryTest {
     public void whenLoggedInReturnShouldSucceed() {
         UserSession.login("123-4567", "foobar");
         secureLibraryWithTwoBooks.returnItemWithId(1);
+    }
+
+    @Test
+    public void whenAUserChecksOutABookSheShouldBeAccountableForIt() {
+        UserSession.login("123-4567", "foobar");
+        secureLibraryWithTwoBooks.checkoutItemWithId(0);
+        assertEquals(new HashMap<Integer, UserSession>() {{put(0, UserSession.getSession());}},
+                secureLibraryWithTwoBooks.getAccountabilities());
+    }
+
+    @Test
+    public void whenAUserReturnsABookSheShouldNotBeAccountableAnymore() {
+        UserSession.login("123-4567", "foobar");
+        secureLibraryWithTwoBooks.checkoutItemWithId(0);
+
+        secureLibraryWithTwoBooks.returnItemWithId(0);
+
+        assertEquals(new HashMap<Integer, UserSession>(), secureLibraryWithTwoBooks.getAccountabilities());
     }
 
 }
