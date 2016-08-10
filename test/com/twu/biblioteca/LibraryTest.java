@@ -4,23 +4,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.Year;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LibraryTest {
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    private Library libraryWithOneBook;
+    private Library libraryWithTwoBooks;
     private Library emptyLibrary;
 
     @Before
     public void setUp() {
-        System.setOut(new PrintStream(outContent));
-        libraryWithOneBook = new Library<>(new Book("Animal Farm", "George Orwell", Year.of(1945)));
+        libraryWithTwoBooks = new Library<>(
+                new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
+                new Book("Animal Farm", "George Orwell", Year.of(1945))
+        );
         emptyLibrary = new Library<>();
     }
 
@@ -31,8 +31,8 @@ public class LibraryTest {
 
     @Test
     public void checkedOutBooksShouldBeMarkedAsCheckedOut() {
-        libraryWithOneBook.checkoutItemWithId(0);
-        assertTrue(libraryWithOneBook.isCheckedOut(0));
+        libraryWithTwoBooks.checkoutItemWithId(0);
+        assertTrue(libraryWithTwoBooks.isCheckedOut(0));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -47,8 +47,8 @@ public class LibraryTest {
 
     @Test(expected = IllegalStateException.class)
     public void checkingOutACheckedOutBookShouldFail() {
-        libraryWithOneBook.checkoutItemWithId(0);
-        libraryWithOneBook.checkoutItemWithId(0);
+        libraryWithTwoBooks.checkoutItemWithId(0);
+        libraryWithTwoBooks.checkoutItemWithId(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -58,16 +58,40 @@ public class LibraryTest {
 
     @Test
     public void returningACheckedOutBookShouldSucceed() {
-        libraryWithOneBook.checkoutItemWithId(0);
+        libraryWithTwoBooks.checkoutItemWithId(0);
 
-        libraryWithOneBook.returnItemWithId(0);
+        libraryWithTwoBooks.returnItemWithId(0);
 
-        assertFalse(libraryWithOneBook.isCheckedOut(0));
+        assertFalse(libraryWithTwoBooks.isCheckedOut(0));
     }
 
     @Test(expected = IllegalStateException.class)
     public void returningANonCheckedOutBookShouldFail() {
-        libraryWithOneBook.returnItemWithId(0);
+        libraryWithTwoBooks.returnItemWithId(0);
+    }
+
+    @Test
+    public void whenTheFirstItemIsReturnedTheItemShouldAppearInTheListAgain() {
+        libraryWithTwoBooks.checkoutItemWithId(0);
+
+        libraryWithTwoBooks.returnItemWithId(0);
+
+        assertEquals(TestConstants.COMPLETE_BOOKLIST, libraryWithTwoBooks.toString());
+    }
+
+    @Test
+    public void whenTheSecondItemIsReturnedTheItemShouldAppearInTheListAgain() {
+        libraryWithTwoBooks.checkoutItemWithId(1);
+
+        libraryWithTwoBooks.returnItemWithId(1);
+
+        assertEquals(TestConstants.COMPLETE_BOOKLIST, libraryWithTwoBooks.toString());
+    }
+
+    @Test
+    public void whenTheSecondItemIsCheckedOutItShouldNotAppearInTheList() {
+        libraryWithTwoBooks.checkoutItemWithId(1);
+        assertEquals(TestConstants.BOOK1_ENTRY, libraryWithTwoBooks.toString());
     }
 
 }

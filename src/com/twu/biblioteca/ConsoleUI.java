@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -18,15 +19,15 @@ class ConsoleUI {
 
 
     private class LibraryUiWrapper {
-        private Library library;
+        private ILibrary library;
         private String itemKind;
 
-        public LibraryUiWrapper(Library library, String itemKind) {
+        public LibraryUiWrapper(ILibrary library, String itemKind) {
             this.library = library;
             this.itemKind = itemKind;
         }
 
-        public Library getLibrary() {
+        public ILibrary getLibrary() {
             return library;
         }
 
@@ -36,7 +37,7 @@ class ConsoleUI {
     }
 
 
-    ConsoleUI(InputStream input, Library<Book> books, Library<Movie> movies) {
+    ConsoleUI(InputStream input, SecureLibrary books, Library movies) {
         this.books = new LibraryUiWrapper(books, "book");
         this.movies = new LibraryUiWrapper(movies, "movie");
         this.scanner = new Scanner(input);
@@ -44,18 +45,79 @@ class ConsoleUI {
         buildMenu();
     }
 
-    public ConsoleUI(Library<Book> books, Library<Movie> movies) {
+    public ConsoleUI(SecureLibrary books, Library movies) {
         this(System.in, books, movies);
     }
 
     private void buildMenu() {
         menu.addOption(Message.LIST_BOOKS, () -> listItemsFromLibrary(books))
-        .addOption(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
-        .addOption(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
+        .addOptionThatRequiresAuthentication(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
+        .addOptionThatRequiresAuthentication(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
         .addOption(Message.LIST_MOVIES, () -> listItemsFromLibrary(movies))
         .addOption(Message.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
         .addOption(Message.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
+        .addOptionThatIsHiddenWhenAuthenticated("Login", this::tryToLogin)
+        .addOptionThatRequiresAuthentication("Logout", this::logout)
+        .addOptionThatRequiresAuthentication("Show User Information", this::showUserInformation)
+        .addOption("List Accountabilities for Books", () -> showAccountabilityListForLibrary(books))
         .addOption(Message.QUIT, this::quit);
+    }
+
+    private void showAccountabilityListForLibrary(LibraryUiWrapper uiLibrary) {
+        Map<Integer, UserSession> accountabilities = uiLibrary.getLibrary().getAccountabilities();
+        for(Integer itemId : accountabilities.keySet())
+            showAccountabiliy(itemId, accountabilities.get(itemId));
+    }
+
+    private void showAccountabiliy(int itemId, UserSession accountability) {
+        System.out.println("Item with ID " + (itemId+1) + " was checked out by " + accountability);
+    }
+
+    private void showUserInformation() {
+        System.out.println(UserSession.getSession());
+    }
+
+    private void logout() {
+        UserSession.logout();
+        showMainMenu();
+    }
+
+    private void tryToLogin() {
+        try {
+            String libraryId = readLibraryId();
+            String password = readPassword();
+            UserSession.login(libraryId, password);
+            showMainMenu();
+        } catch(IllegalArgumentException | IllegalStateException ex) {
+            showLoginError(ex.getMessage());
+        }
+    }
+
+    private void showLoginError(String errorMsg) {
+        System.out.println(errorMsg);
+    }
+
+    private String readPassword() {
+        return readStringInputOfKind("Password");
+    }
+
+    private String readLibraryId() {
+        return readStringInputOfKind("Library ID");
+    }
+
+    private String readStringInputOfKind(String inputKind) {
+        demandInputOfKind(inputKind);
+        return readLineFromScanner();
+    }
+
+    private String readLineFromScanner() {
+        if(!scanner.hasNextLine())
+            throw new IllegalStateException("No input was given.");
+        return scanner.nextLine();
+    }
+
+    private void demandInputOfKind(String inputKind) {
+        System.out.println(inputKind + ": ");
     }
 
     private void listItemsFromLibrary(LibraryUiWrapper uiLibrary) {
@@ -139,9 +201,13 @@ class ConsoleUI {
         try {
             char optionId = readMenuOption();
             applyMenuOption(optionId);
-        } catch(IOException ex) {
-            System.out.println(Message.INVALID_OPTION);
+        } catch(IOException | IllegalStateException ex) {
+            showInvalidOptionMessage();
         }
+    }
+
+    private void showInvalidOptionMessage() {
+        System.out.println(Message.INVALID_OPTION);
     }
 
     private char readMenuOption() throws IOException {
@@ -158,7 +224,7 @@ class ConsoleUI {
         System.out.print("Please select an option: ");
     }
 
-    private void applyMenuOption(char optionId) throws IOException {
+    private void applyMenuOption(char optionId) throws IOException, IllegalStateException {
         menu.applyOptionWithId(optionId);
     }
 

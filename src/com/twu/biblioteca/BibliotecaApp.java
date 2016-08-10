@@ -6,7 +6,7 @@ class BibliotecaApp {
 
     private final ConsoleUI ui;
 
-    private BibliotecaApp(Library<Book> bookLibrary, Library<Movie> movieLibrary) {
+    private BibliotecaApp(SecureLibrary bookLibrary, Library movieLibrary) {
         ui = new ConsoleUI(bookLibrary, movieLibrary);
     }
 
@@ -15,7 +15,7 @@ class BibliotecaApp {
     }
 
     public static void main(String[] args) {
-        Library bookLibrary = new Library<>(
+        SecureLibrary bookLibrary = new SecureLibrary<>(
                 new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
                 new Book("Animal Farm", "George Orwell", Year.of(1945)),
                 new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", Year.of(1979))

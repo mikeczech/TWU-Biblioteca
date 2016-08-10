@@ -12,8 +12,6 @@ import static org.junit.Assert.assertEquals;
 
 public class MenuTest {
 
-    private static final String LIST_BOOKS_LABEL = "List Books\n";
-    private static final String QUIT_LABEL = "Quit\n";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     private Menu emptyMenu;
@@ -45,15 +43,15 @@ public class MenuTest {
 
     @Test
     public void menuStringReprShowsOptions() {
-        assertEquals("a) " + LIST_BOOKS_LABEL, menuWithOneOption.toString());
+        assertEquals("a) " + TestConstants.LIST_BOOKS_LABEL, menuWithOneOption.toString());
     }
 
     @Test
     public void menuStringReprShowsMultipleOptions() {
         menuWithOneOption.addOptionWithLabel("Quit");
 
-        assertEquals("a) " + LIST_BOOKS_LABEL +
-                "b) " + QUIT_LABEL, menuWithOneOption.toString());
+        assertEquals("a) " + TestConstants.LIST_BOOKS_LABEL +
+                "b) " + TestConstants.QUIT_LABEL, menuWithOneOption.toString());
     }
 
     @Test
@@ -61,8 +59,8 @@ public class MenuTest {
         emptyMenu.addOptionWithLabel("Quit");
         emptyMenu.addOptionWithLabel("List Books");
 
-        assertEquals("a) " + QUIT_LABEL +
-                "b) " + LIST_BOOKS_LABEL, emptyMenu.toString());
+        assertEquals("a) " + TestConstants.QUIT_LABEL +
+                "b) " + TestConstants.LIST_BOOKS_LABEL, emptyMenu.toString());
     }
 
     @Test
@@ -89,13 +87,13 @@ public class MenuTest {
     @Test
     public void optionThatRequiresAuthenticationShouldBeShownTheMenuIfTheUserIsLoggedIn() {
         UserSession.login("123-4567", "foobar");
-        assertEquals("a) " +  LIST_BOOKS_LABEL +
-                "b) " + QUIT_LABEL, menuWithOptionThatRequiresAuthentication.toString());
+        assertEquals("a) " +  TestConstants.LIST_BOOKS_LABEL +
+                "b) " + TestConstants.QUIT_LABEL, menuWithOptionThatRequiresAuthentication.toString());
     }
 
     @Test
     public void optionThatRequiresAuthenticationShouldBeHiddenIfTheUserIsNotLoggedIn() {
-        assertEquals("a) " +  LIST_BOOKS_LABEL, menuWithOptionThatRequiresAuthentication.toString());
+        assertEquals("a) " +  TestConstants.LIST_BOOKS_LABEL, menuWithOptionThatRequiresAuthentication.toString());
     }
 
     @Test(expected = IllegalStateException.class)
@@ -105,14 +103,14 @@ public class MenuTest {
 
     @Test
     public void optionThatIsHiddenAfterAuthenticationShouldBeShownWhenUserIsNotLoggedIn() {
-        assertEquals("a) " +  LIST_BOOKS_LABEL +
-                "b) " + QUIT_LABEL, menuWithOptionThatIsHiddenWhenAuthenticated.toString());
+        assertEquals("a) " +  TestConstants.LIST_BOOKS_LABEL +
+                "b) " + TestConstants.QUIT_LABEL, menuWithOptionThatIsHiddenWhenAuthenticated.toString());
     }
 
     @Test
     public void optionThatIsHiddenAfterAuthenticationShouldBeHiddenWhenUserIsLoggedIn() {
         UserSession.login("123-4567", "foobar");
-        assertEquals("a) " +  LIST_BOOKS_LABEL, menuWithOptionThatIsHiddenWhenAuthenticated.toString());
+        assertEquals("a) " +  TestConstants.LIST_BOOKS_LABEL, menuWithOptionThatIsHiddenWhenAuthenticated.toString());
     }
 
 }
