@@ -45,7 +45,7 @@ public class UserSessionTest {
         UserSession.login("523-4242", "barfoo");
         UserSession session = UserSession.getSession();
         assertEquals("Hillary Clinton", session.getName());
-        assertEquals("clinton@dumb.com", session.getEmail());
+        assertEquals("clinton@foo.com", session.getEmail());
         assertEquals("654321", session.getPhone());
     }
 

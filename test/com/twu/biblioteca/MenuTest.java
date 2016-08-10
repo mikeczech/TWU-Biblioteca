@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,13 +18,24 @@ public class MenuTest {
 
     private Menu emptyMenu;
     private Menu menuWithOneOption;
+    private Menu menuWithOptionThatRequiresAuthentication;
 
     @Before
     public void setUp() {
         System.setOut(new PrintStream(outContent));
         emptyMenu = new Menu();
+
         menuWithOneOption = new Menu();
-        menuWithOneOption.addOptionWithLabelAndAction("List Books", () -> System.out.println("All the books"));
+        menuWithOneOption.addOption("List Books", () -> System.out.println("All the books"));
+
+        menuWithOptionThatRequiresAuthentication = new Menu();
+        menuWithOptionThatRequiresAuthentication.addOptionWithLabel("List Books");
+        menuWithOptionThatRequiresAuthentication.addOptionThatRequiresAuthentication("Quit", () -> System.out.println());
+    }
+
+    @After
+    public void setDown() {
+        UserSession.logout();
     }
 
     @Test
@@ -62,11 +74,23 @@ public class MenuTest {
 
     @Test
     public void selectingSecondOptionLeadsToExpectedAction() throws IOException {
-        menuWithOneOption.addOptionWithLabelAndAction("Quit", () -> System.out.println("Now we quit"));
+        menuWithOneOption.addOption("Quit", () -> System.out.println("Now we quit"));
 
         menuWithOneOption.applyOptionWithId('b');
 
         assertEquals("Now we quit\n", outContent.toString());
+    }
+
+    @Test
+    public void optionThatRequiresAuthenticationShouldBeShownTheMenuIfTheUserIsLoggedIn() {
+        UserSession.login("123-4567", "foobar");
+        assertEquals("a) " +  LIST_BOOKS_LABEL +
+                "b) " + QUIT_LABEL, menuWithOptionThatRequiresAuthentication.toString());
+    }
+
+    @Test
+    public void optionThatRequiresAuthenticationShouldBeHiddenIfTheUserIsNotLoggedIn() {
+        assertEquals("a) " +  LIST_BOOKS_LABEL, menuWithOptionThatRequiresAuthentication.toString());
     }
 
 }

@@ -15,7 +15,7 @@ public class UserSession {
         userToSession.put("123-4567", new UserSession("Donald Trump", "trump@dumb.com", "123456"));
 
         userToPassword.put("523-4242", "barfoo");
-        userToSession.put("523-4242", new UserSession("Hillary Clinton", "clinton@dumb.com", "654321"));
+        userToSession.put("523-4242", new UserSession("Hillary Clinton", "clinton@foo.com", "654321"));
     }
 
     private String name;

@@ -49,13 +49,13 @@ class ConsoleUI {
     }
 
     private void buildMenu() {
-        menu.addOptionWithLabelAndAction(Message.LIST_BOOKS, () -> listItemsFromLibrary(books))
-        .addOptionWithLabelAndAction(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
-        .addOptionWithLabelAndAction(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
-        .addOptionWithLabelAndAction(Message.LIST_MOVIES, () -> listItemsFromLibrary(movies))
-        .addOptionWithLabelAndAction(Message.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
-        .addOptionWithLabelAndAction(Message.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
-        .addOptionWithLabelAndAction(Message.QUIT, this::quit);
+        menu.addOption(Message.LIST_BOOKS, () -> listItemsFromLibrary(books))
+        .addOption(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
+        .addOption(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
+        .addOption(Message.LIST_MOVIES, () -> listItemsFromLibrary(movies))
+        .addOption(Message.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
+        .addOption(Message.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
+        .addOption(Message.QUIT, this::quit);
     }
 
     private void listItemsFromLibrary(LibraryUiWrapper uiLibrary) {
