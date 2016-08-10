@@ -50,17 +50,17 @@ class ConsoleUI {
     }
 
     private void buildMenu() {
-        menu.addOption(Message.LIST_BOOKS, () -> listItemsFromLibrary(books))
-        .addOptionThatRequiresAuthentication(Message.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
-        .addOptionThatRequiresAuthentication(Message.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
-        .addOption(Message.LIST_MOVIES, () -> listItemsFromLibrary(movies))
-        .addOption(Message.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
-        .addOption(Message.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
-        .addOptionThatIsHiddenWhenAuthenticated("Login", this::tryToLogin)
-        .addOptionThatRequiresAuthentication("Logout", this::logout)
-        .addOptionThatRequiresAuthentication("Show User Information", this::showUserInformation)
-        .addOption("List Accountabilities for Books", () -> showAccountabilityListForLibrary(books))
-        .addOption(Message.QUIT, this::quit);
+        menu.addOption(Labels.LIST_BOOKS, () -> listItemsFromLibrary(books))
+        .addOptionThatRequiresAuthentication(Labels.CHECK_OUT_BOOK, () -> tryToCheckoutItemFromLibrary(books))
+        .addOptionThatRequiresAuthentication(Labels.RETURN_BOOK, () -> tryToReturnItemFromLibrary(books))
+        .addOption(Labels.LIST_MOVIES, () -> listItemsFromLibrary(movies))
+        .addOption(Labels.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
+        .addOption(Labels.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
+        .addOptionThatIsHiddenWhenAuthenticated(Labels.LOGIN, this::tryToLogin)
+        .addOptionThatRequiresAuthentication(Labels.LOGOUT, this::logout)
+        .addOptionThatRequiresAuthentication(Labels.SHOW_USER_INFORMATION, this::showUserInformation)
+        .addOption(Labels.LIST_ACCOUNTABILITIES_FOR_BOOKS, () -> showAccountabilityListForLibrary(books))
+        .addOption(Labels.QUIT, this::quit);
     }
 
     private void showAccountabilityListForLibrary(LibraryUiWrapper uiLibrary) {
@@ -136,12 +136,12 @@ class ConsoleUI {
     }
 
     private void reportSuccessfulCheckoutOfItemOfKind(String itemKind) {
-        System.out.println(Message.SUCCESSFUL_CHECKOUT.apply(itemKind));
+        System.out.println(Labels.SUCCESSFUL_CHECKOUT.apply(itemKind));
     }
 
     private void reportUnsuccessfulCheckoutOfItemOfKind(String itemKind) {
         System.out.println();
-        System.out.println(Message.UNSUCCESSFUL_CHECKOUT.apply(itemKind));
+        System.out.println(Labels.UNSUCCESSFUL_CHECKOUT.apply(itemKind));
     }
 
     private void tryToReturnItemFromLibrary(LibraryUiWrapper uiLibrary) {
@@ -156,12 +156,12 @@ class ConsoleUI {
     }
 
     private void reportSuccessfulReturnOfItemOfKind(String itemKind) {
-        System.out.println(Message.SUCCESSFUL_RETURN.apply(itemKind));
+        System.out.println(Labels.SUCCESSFUL_RETURN.apply(itemKind));
     }
 
     private void reportUnsuccessfulReturnOfItemOfKind(String itemKind) {
         System.out.println();
-        System.out.println(Message.UNSUCCESSFUL_RETURN.apply(itemKind));
+        System.out.println(Labels.UNSUCCESSFUL_RETURN.apply(itemKind));
     }
 
     private int readIdOfItemOfKind(String itemKind) {
@@ -172,7 +172,7 @@ class ConsoleUI {
     }
 
     private void demandIdOfItemOfKind(String itemKind) {
-        System.out.print(Message.SELECT_ITEMID.apply(itemKind));
+        System.out.print(Labels.SELECT_ITEMID.apply(itemKind));
     }
 
     public void show() {
@@ -184,7 +184,7 @@ class ConsoleUI {
     }
 
     private void showWelcomeMessage() {
-        System.out.println(Message.WELCOME);
+        System.out.println(Labels.WELCOME);
     }
 
     private void showMainMenu() {
@@ -207,7 +207,7 @@ class ConsoleUI {
     }
 
     private void showInvalidOptionMessage() {
-        System.out.println(Message.INVALID_OPTION);
+        System.out.println(Labels.INVALID_OPTION);
     }
 
     private char readMenuOption() throws IOException {

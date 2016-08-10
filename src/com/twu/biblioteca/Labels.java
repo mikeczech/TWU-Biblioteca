@@ -2,9 +2,14 @@ package com.twu.biblioteca;
 
 import java.util.function.Function;
 
-class Message {
+class Labels {
 
-    private Message() {}
+    private Labels() {}
+
+    static final String LOGIN = "Login";
+    static final String LOGOUT = "Logout";
+    static final String SHOW_USER_INFORMATION = "Show User Information";
+    static final String LIST_ACCOUNTABILITIES_FOR_BOOKS = "List Accountabilities for Books";
 
     static final String WELCOME = "Welcome to Biblioteca!";
     static final String INVALID_OPTION = "Select a valid option!";
