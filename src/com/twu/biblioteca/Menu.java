@@ -44,10 +44,17 @@ public class Menu {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for(Character optionId : optionIdToLabel.keySet())
-            if(!optionIdsThatRequireAuth.contains(optionId) || UserSession.isLoggedIn())
-                if(!(optionIdsThatAreHiddenWhenAuth.contains(optionId) && UserSession.isLoggedIn()))
+            if(!isHiddenDueToUserIsNotLoggedIn(optionId) && !isHiddenDueToUserIsLoggedIn(optionId))
                     builder.append(optionId).append(") ").append(optionIdToLabel.get(optionId)).append("\n");
         return builder.toString();
+    }
+
+    public boolean isHiddenDueToUserIsNotLoggedIn(Character optionId) {
+        return optionIdsThatRequireAuth.contains(optionId) && !UserSession.isLoggedIn();
+    }
+
+    public boolean isHiddenDueToUserIsLoggedIn(Character optionId) {
+        return optionIdsThatAreHiddenWhenAuth.contains(optionId) && UserSession.isLoggedIn();
     }
 
     public Menu addOptionThatIsHiddenWhenAuthenticated(String optionLabel, Action action) {
