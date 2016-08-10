@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 
-class Library<T extends LibraryItem> {
+class Library<T extends LibraryItem> implements ILibrary {
 
     private final List<T> items = new ArrayList<>();
     private final Set<T> checkedOut = new HashSet<>();
@@ -13,6 +13,7 @@ class Library<T extends LibraryItem> {
         Collections.addAll(this.items, items);
     }
 
+    @Override
     public void checkoutItemWithId(int itemId) {
         T item = tryToGetItemById(itemId);
         if(isCheckedOut(item))
@@ -36,11 +37,13 @@ class Library<T extends LibraryItem> {
         checkedOut.add(item);
     }
 
+    @Override
     public boolean isCheckedOut(int itemId) {
         T item = tryToGetItemById(itemId);
         return isCheckedOut(item);
     }
 
+    @Override
     public void returnItemWithId(int itemId) {
         T item = tryToGetItemById(itemId);
         if(!isCheckedOut(item))
