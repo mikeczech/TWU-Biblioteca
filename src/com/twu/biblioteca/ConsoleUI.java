@@ -57,7 +57,7 @@ class ConsoleUI {
         .addOption(Labels.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
         .addOption(Labels.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
         .addOptionThatIsHiddenWhenAuthenticated(Labels.LOGIN, this::tryToLogin)
-        .addOptionThatRequiresAuthentication(Labels.LOGOUT, this::logout)
+        .addOptionThatRequiresAuthentication(Labels.LOGOUT, this::logoutAndShowMainMenu)
         .addOptionThatRequiresAuthentication(Labels.SHOW_USER_INFORMATION, this::showUserInformation)
         .addOption(Labels.LIST_ACCOUNTABILITIES_FOR_BOOKS, () -> showAccountabilityListForLibrary(books))
         .addOption(Labels.QUIT, this::quit);
@@ -77,7 +77,7 @@ class ConsoleUI {
         System.out.println(UserSession.getSession());
     }
 
-    private void logout() {
+    private void logoutAndShowMainMenu() {
         UserSession.logout();
         showMainMenu();
     }
@@ -166,6 +166,10 @@ class ConsoleUI {
 
     private int readIdOfItemOfKind(String itemKind) {
         demandIdOfItemOfKind(itemKind);
+        return readIntegerFromScanner();
+    }
+
+    private int readIntegerFromScanner() {
         if(!scanner.hasNextLine())
             throw new IllegalStateException("No input was given.");
         return Integer.parseInt(scanner.nextLine());
@@ -212,6 +216,11 @@ class ConsoleUI {
 
     private char readMenuOption() throws IOException {
         showPleaseSelectOptionMessage();
+        char optionId = readMenuOptionIdFromScanner();
+        return optionId;
+    }
+
+    private char readMenuOptionIdFromScanner() throws IOException {
         if(!scanner.hasNextLine())
             throw new IOException("Empty input.");
         String input = scanner.nextLine();
