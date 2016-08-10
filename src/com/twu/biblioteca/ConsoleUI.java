@@ -70,7 +70,7 @@ class ConsoleUI {
     }
 
     private void showAccountabiliy(int itemId, UserSession accountability) {
-        System.out.println("Item with ID " + (itemId+1) + " was checked out by " + accountability);
+        System.out.println("Book with ID " + (itemId+1) + " was checked out by " + accountability);
     }
 
     private void showUserInformation() {
