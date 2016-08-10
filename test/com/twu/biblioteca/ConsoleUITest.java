@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +20,11 @@ public class ConsoleUITest {
         System.setOut(new PrintStream(outContent));
     }
 
+    @After
+    public void setDown() {
+        UserSession.logout();
+    }
+
     private ConsoleUI createUIWithInput(String input) {
         SecureLibrary bookLibrary = new SecureLibrary<>(
             new Book("Brave New World", "Aldous Huxley", Year.of(1932)),
@@ -35,7 +41,7 @@ public class ConsoleUITest {
     public void afterShowingTheWelcomeMessageTheMenuShouldAppear() {
         ConsoleUI ui = createUIWithInput("");
         ui.show();
-        assertEquals(TestConstants.WELCOME_MESSAGE + TestConstants.MAIN_MENU + TestConstants.END_OF_OUTPUT, outContent.toString());
+        assertEquals(TestConstants.WELCOME_MESSAGE + TestConstants.MAIN_MENU_NOT_LOGGED_IN + TestConstants.END_OF_OUTPUT, outContent.toString());
     }
 
     @Test
@@ -74,14 +80,14 @@ public class ConsoleUITest {
     public void checkingOutAnAvailableMovieShouldResultInASuccessMessage() {
         ConsoleUI ui = createUIWithInput("e\n1\n");
         ui.show();
-        assertOutputIs(TestConstants.SELECT_MOVIEID_MSG + TestConstants.THANK_YOU_MSG);
+        assertOutputIs(TestConstants.SELECT_MOVIEID_MSG + TestConstants.MOVIE_THANK_YOU_MSG);
     }
 
     @Test
     public void whenCheckingOutAnAlreadyCheckedOutMovieAMessageAppears() {
         ConsoleUI ui = createUIWithInput("e\n1\ne\n1\n");
         ui.show();
-        assertOutputIs(TestConstants.SELECT_MOVIEID_MSG + TestConstants.THANK_YOU_MSG + "\n" +
+        assertOutputIs(TestConstants.SELECT_MOVIEID_MSG + TestConstants.MOVIE_THANK_YOU_MSG + "\n" +
                                 TestConstants.SELECT_OPTION_MSG + TestConstants.SELECT_MOVIEID_MSG + "\n" +
                                 TestConstants.INVALID_MOVIE_MESSAGE);
     }
@@ -98,6 +104,17 @@ public class ConsoleUITest {
         ConsoleUI ui = createUIWithInput("f\n1\n");
         ui.show();
         assertOutputIs(TestConstants.SELECT_MOVIEID_MSG + "\n" + TestConstants.NO_VALID_MOVIE_TO_RETURN_MSG);
+    }
+
+    @Test
+    public void whenLoggedInTheUserCanCheckoutABook() {
+        ConsoleUI ui = createUIWithInput("g\n123-4567\nfoobar\nb\n1\n");
+        ui.show();
+        assertOutputIs("Library ID: " + "\n" + "Password: " + "\n\n" + TestConstants.MAIN_MENU_LOGGED_IN + "\n" +
+                TestConstants.SELECT_OPTION_MSG +
+                TestConstants.SELECT_BOOKID_MSG +
+                TestConstants.BOOK_THANK_YOU_MSG
+        );
     }
 
 
