@@ -56,7 +56,7 @@ class ConsoleUI {
         .addOption(Labels.LIST_MOVIES, () -> listItemsFromLibrary(movies))
         .addOption(Labels.CHECK_OUT_MOVIE, () -> tryToCheckoutItemFromLibrary(movies))
         .addOption(Labels.RETURN_MOVIE, () -> tryToReturnItemFromLibrary(movies))
-        .addOptionThatIsHiddenWhenAuthenticated(Labels.LOGIN, this::tryToLogin)
+        .addOptionThatIsHiddenWhenUserIsAuthenticated(Labels.LOGIN, this::tryToLogin)
         .addOptionThatRequiresAuthentication(Labels.LOGOUT, this::logoutAndShowMainMenu)
         .addOptionThatRequiresAuthentication(Labels.SHOW_USER_INFORMATION, this::showUserInformation)
         .addOption(Labels.LIST_ACCOUNTABILITIES_FOR_BOOKS, () -> showAccountabilityListForLibrary(books))

@@ -57,7 +57,7 @@ public class Menu {
         return optionIdsThatAreHiddenWhenAuth.contains(optionId) && UserSession.isLoggedIn();
     }
 
-    public Menu addOptionThatIsHiddenWhenAuthenticated(String optionLabel, Action action) {
+    public Menu addOptionThatIsHiddenWhenUserIsAuthenticated(String optionLabel, Action action) {
         optionIdsThatAreHiddenWhenAuth.add(nextOptionId);
         addOption(optionLabel, action);
         return this;

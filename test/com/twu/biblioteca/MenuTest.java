@@ -33,7 +33,7 @@ public class MenuTest {
 
         menuWithOptionThatIsHiddenWhenAuthenticated = new Menu();
         menuWithOptionThatIsHiddenWhenAuthenticated.addOptionWithLabel("List Books");
-        menuWithOptionThatIsHiddenWhenAuthenticated.addOptionThatIsHiddenWhenAuthenticated("Quit", () -> System.out.println());
+        menuWithOptionThatIsHiddenWhenAuthenticated.addOptionThatIsHiddenWhenUserIsAuthenticated("Quit", () -> System.out.println());
     }
 
     @After

@@ -18,6 +18,10 @@ public class SecureLibrary<T extends LibraryItem> implements ILibrary {
         if(!UserSession.isLoggedIn())
             throw new IllegalStateException("You must be logged in to check-out an item!");
         library.checkoutItemWithId(itemId);
+        makeCurrentUserAccountableForItemId(itemId);
+    }
+
+    private void makeCurrentUserAccountableForItemId(int itemId) {
         accountabilities.put(itemId, UserSession.getSession());
     }
 
@@ -31,6 +35,10 @@ public class SecureLibrary<T extends LibraryItem> implements ILibrary {
         if(!UserSession.isLoggedIn())
             throw new IllegalStateException("You must be logged in to return an item!");
         library.returnItemWithId(itemId);
+        removeAccountabilityFromCurrentUserForItemId(itemId);
+    }
+
+    private void removeAccountabilityFromCurrentUserForItemId(int itemId) {
         accountabilities.remove(itemId);
     }
 
