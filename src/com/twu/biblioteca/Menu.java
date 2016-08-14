@@ -49,11 +49,11 @@ public class Menu {
         return builder.toString();
     }
 
-    public boolean isHiddenDueToUserIsNotLoggedIn(Character optionId) {
+    private boolean isHiddenDueToUserIsNotLoggedIn(Character optionId) {
         return optionIdsThatRequireAuth.contains(optionId) && !UserSession.isLoggedIn();
     }
 
-    public boolean isHiddenDueToUserIsLoggedIn(Character optionId) {
+    private boolean isHiddenDueToUserIsLoggedIn(Character optionId) {
         return optionIdsThatAreHiddenWhenAuth.contains(optionId) && UserSession.isLoggedIn();
     }
 
